@@ -3,162 +3,1178 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gestão de Dono — Assessment v3</title>
+<title>GoBraz — Comunidade de Empresários</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-:root{--blue:#2557B7;--blue2:#1A3D8F;--light:#EBF2FF;--bg:#F8FAFC;--card:#fff;--text:#111827;--muted:#6B7280;--border:#E5E7EB;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--purple:#7C3AED;--shadow:0 8px 28px rgba(15,23,42,.08);--r:16px}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;font-size:15px}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:var(--blue);text-decoration:none}.hidden{display:none!important}
-.header{height:64px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(37,87,183,.06)}
-.logo{line-height:1;cursor:pointer}.logo .small{font-size:.82rem;font-weight:800;letter-spacing:.02em}.logo .big{display:inline-block;margin-top:2px;background:var(--blue);color:#fff;font-size:1.08rem;font-weight:900;padding:3px 9px;border-radius:5px}.hdr-actions{display:flex;gap:8px;align-items:center}.chip{border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:#fff;color:var(--muted);font-size:.78rem}.wrap{max-width:1040px;margin:0 auto;padding:26px 16px}.narrow{max-width:760px}.hero{min-height:100vh;background:linear-gradient(155deg,#eef5ff 0%,#fff 58%,#f8fafc 100%);display:flex;align-items:center;justify-content:center;padding:28px 16px}.hero-card{background:#fff;border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:34px;max-width:760px;width:100%}.hero-logo{text-align:center;margin-bottom:20px}.hero-logo .small{font-size:1.6rem;font-weight:900}.hero-logo .big{display:inline-block;background:var(--blue);color:#fff;font-size:2.1rem;font-weight:900;padding:3px 16px;border-radius:8px}.hero h1{text-align:center;font-size:1.7rem;line-height:1.25;margin:10px 0}.hero p{text-align:center;color:var(--muted);line-height:1.65;margin:0 auto 22px;max-width:620px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:760px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.header{padding:0 12px}.hero-card{padding:24px 18px}}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.03)}.card.soft{box-shadow:var(--shadow)}.card-title{font-size:1.08rem;font-weight:800;margin-bottom:6px}.card-sub{font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:14px}.muted{color:var(--muted)}.small{font-size:.84rem}.xs{font-size:.74rem}.bold{font-weight:800}.center{text-align:center}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt22{margin-top:22px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.flex{display:flex}.between{justify-content:space-between}.centered{align-items:center}.gap8{gap:8px}.gap12{gap:12px}.wrapgap{flex-wrap:wrap}.hr{border:none;border-top:1px solid var(--border);margin:18px 0}
-.btn{border:0;border-radius:11px;padding:11px 17px;font-weight:800;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s}.btn:hover{transform:translateY(-1px)}.btn-primary{background:var(--blue);color:white}.btn-primary:hover{background:var(--blue2)}.btn-secondary{background:var(--light);color:var(--blue);border:1px solid #c7d9f8}.btn-ghost{background:white;color:var(--muted);border:1px solid var(--border)}.btn-danger{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}.btn-sm{padding:7px 11px;font-size:.78rem;border-radius:9px}.btn-block{width:100%}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:800}.b-blue{background:var(--light);color:var(--blue)}.b-green{background:#ecfdf5;color:#065f46}.b-amber{background:#fffbeb;color:#92400e}.b-red{background:#fef2f2;color:#991b1b}.b-gray{background:#f3f4f6;color:#374151}.b-purple{background:#f5f3ff;color:#5b21b6}
-.alert{padding:13px 15px;border-radius:12px;font-size:.86rem;line-height:1.55;margin-bottom:14px}.info{background:var(--light);border:1px solid #c7d9f8;color:#173B7A}.success{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e}.error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
-label{display:block;font-size:.8rem;font-weight:800;margin-bottom:6px}.req{color:var(--red)}input,select,textarea{width:100%;border:1.5px solid var(--border);border-radius:11px;padding:11px 13px;background:white;outline:none}textarea{min-height:100px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,87,183,.12)}.field{margin-bottom:14px}.hint{font-size:.74rem;color:var(--muted);margin-top:4px;line-height:1.4}.invalid{border-color:var(--red)!important}.tabs{display:flex;gap:2px;border-bottom:2px solid var(--border);overflow-x:auto;margin:18px 0}.tab{background:transparent;border:0;border-bottom:2px solid transparent;padding:11px 15px;margin-bottom:-2px;color:var(--muted);font-weight:800;white-space:nowrap}.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
-.progress{height:8px;background:var(--border);border-radius:999px;overflow:hidden}.progress>div{height:100%;background:var(--blue);border-radius:999px}.q-card{border:1px solid var(--border);border-radius:15px;background:white;padding:18px;margin-bottom:14px}.q-text{font-weight:800;line-height:1.45;margin-bottom:13px}.scale{display:grid;gap:8px}.opt{display:flex;gap:11px;align-items:flex-start;border:1.5px solid var(--border);border-radius:12px;padding:11px 12px;cursor:pointer}.opt:hover{border-color:#93b4f5;background:#fafcff}.opt.selected{border-color:var(--blue);background:var(--light)}.opt input{width:17px;height:17px;accent-color:var(--blue);margin-top:2px}.opt .num{font-weight:900;color:var(--blue);min-width:18px}.opt .txt{font-size:.83rem;color:var(--muted);line-height:1.35}.score-big{font-size:3.4rem;font-weight:950;line-height:.9}.score-label{font-weight:900}.result-box{border:1px solid var(--border);border-radius:16px;background:white;padding:20px}.bar{height:7px;background:var(--border);border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:var(--blue)}table{width:100%;border-collapse:collapse;font-size:.84rem}th{text-align:left;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;background:#f9fafb}th,td{padding:10px 11px;border-bottom:1px solid var(--border);vertical-align:top}tr:hover td{background:#fbfdff}.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:14px;background:white}.code{font-family:ui-monospace,Consolas,monospace;font-weight:900;color:var(--blue);letter-spacing:.08em}.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:80;display:flex;align-items:center;justify-content:center;padding:16px}.modal{background:white;border-radius:20px;padding:24px;max-width:560px;width:100%;max-height:92vh;overflow:auto}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#111827;color:white;border-radius:10px;padding:10px 16px;font-size:.84rem;z-index:100;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}.mini-card{border:1px solid var(--border);border-radius:14px;padding:14px;background:#fff}.stat{font-size:1.7rem;font-weight:950;color:var(--blue)}
+  :root{
+    --brand:#0b3a6f;--brand-2:#1160b8;--brand-ink:#062647;--accent:#f5a623;
+    --bg:#f4f6fa;--card:#fff;--ink:#152436;--muted:#5b6b7d;--line:#e2e8f1;
+    --ok:#1f9d55;--warn:#d9822b;--danger:#c0392b;--purple:#6b4fbb;
+    --radius:16px;--shadow:0 10px 30px rgba(11,58,111,.09);--shadow-sm:0 4px 14px rgba(11,58,111,.06);--maxw:980px;
+  }
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand-2);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}.narrow{max-width:760px}
+  header.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:var(--maxw)}
+  .logo{display:flex;align-items:center;gap:11px;cursor:pointer}
+  .logo img.brandlogo{height:34px;width:auto;display:block}
+  .logo .name{font-weight:800;letter-spacing:-.3px;color:var(--brand-ink);line-height:1.05}
+  .logo .name small{display:block;font-weight:500;font-size:10.5px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+  .logo .sep{width:1px;height:26px;background:var(--line)}
+  @media(max-width:520px){.logo .name{display:none}.logo .sep{display:none}}
+  .top .consultor-link{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:999px}
+  .top .consultor-link:hover{color:var(--brand-2);border-color:var(--brand-2);text-decoration:none}
+  .top .userchip{display:flex;gap:8px;align-items:center}
+  .chip{font-size:12.5px;color:var(--muted);border:1px solid var(--line);padding:6px 11px;border-radius:999px;background:#fff}
+  main{padding:40px 0 80px;min-height:60vh}
+  .hero{text-align:center;padding:30px 0 8px}
+  .hero h1{font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-1px;margin:0 0 16px;color:var(--brand-ink)}
+  .hero p.lead{font-size:19px;color:var(--muted);max-width:680px;margin:0 auto 12px}
+  .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--brand-2);background:#eaf1fb;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:26px}
+  .card.soft{box-shadow:var(--shadow)}.card+.card{margin-top:18px}
+  .card h2{margin:0 0 6px;font-size:22px;letter-spacing:-.4px;color:var(--brand-ink)}
+  .card h3{margin:0 0 6px;font-size:17px;color:var(--brand-ink)}
+  .card .sub{color:var(--muted);margin:0 0 18px}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;gap:14px;flex-wrap:wrap}.row>*{flex:1;min-width:220px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:720px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+  .muted{color:var(--muted)}.small{font-size:13px}.xs{font-size:11.5px}.center{text-align:center}.bold{font-weight:700}
+  .mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt22{margin-top:22px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}
+  .divider{height:1px;background:var(--line);margin:22px 0}
+  .flex{display:flex}.between{justify-content:space-between}.centered{align-items:center}.gap8{gap:8px}.gap12{gap:12px}.wrapgap{flex-wrap:wrap}
+  .pill{display:inline-block;font-size:12px;font-weight:700;padding:4px 11px;border-radius:999px;background:#eaf1fb;color:var(--brand-2)}
+  .pill.warn{background:#fdf1e3;color:var(--warn)}.pill.ok{background:#e7f6ee;color:var(--ok)}.pill.grey{background:#eef1f5;color:var(--muted)}.pill.purple{background:#efeafb;color:var(--purple)}.pill.red{background:#fbe9e7;color:var(--danger)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:12px;padding:13px 20px;font-size:15px;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit;text-decoration:none}
+  .btn.block{width:100%}
+  .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{filter:brightness(1.06);text-decoration:none}
+  .btn-outline{background:#fff;border-color:var(--line);color:var(--brand-ink)}.btn-outline:hover{border-color:var(--brand-2);color:var(--brand-2);text-decoration:none}
+  .btn-ghost{background:transparent;color:var(--muted)}.btn-ghost:hover{color:var(--brand-2)}
+  .btn-sm{padding:8px 14px;font-size:13px;border-radius:9px}
+  .btn-danger{background:#fff;border-color:#f0c8c2;color:var(--danger)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .cta{border:1px solid var(--line);border-radius:14px;padding:20px;background:#fff;display:flex;flex-direction:column;gap:12px}
+  .cta.primary{border-color:var(--brand-2);background:linear-gradient(180deg,#f3f8ff,#fff);box-shadow:var(--shadow)}
+  .cta .cta-head{display:flex;align-items:flex-start;gap:11px}
+  .cta .num{width:26px;height:26px;border-radius:8px;background:var(--brand-2);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800;flex:none;margin-top:1px}
+  .cta.secondary .num{background:#9fb2c8}
+  .cta h4{margin:0;font-size:16px;color:var(--brand-ink)}.cta p{margin:2px 0 0;color:var(--muted);font-size:14px}
+  label.field{display:block;margin-bottom:14px}
+  label.field .lab{display:block;font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink)}
+  .req{color:var(--danger)}
+  input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:#fff;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(17,96,184,.12)}
+  textarea{min-height:90px;resize:vertical}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}.check input{width:auto;margin-top:3px}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:4px}
+  .q{border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff}.q+.q{margin-top:14px}
+  .q .qhead{display:flex;gap:10px;align-items:flex-start;margin-bottom:6px}
+  .q .qn{width:26px;height:26px;border-radius:7px;background:#eaf1fb;color:var(--brand-2);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+  .q .qtext{font-weight:600;font-size:15px}
+  .q .qmeta{font-size:11.5px;color:var(--muted);margin:2px 0 12px 36px;text-transform:uppercase;letter-spacing:.4px}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:11px 13px;cursor:pointer;font-size:14px;transition:.12s}
+  .opt:hover{border-color:var(--brand-2);background:#f7faff}
+  .opt.sel{border-color:var(--brand-2);background:#eef5ff;box-shadow:inset 0 0 0 1px var(--brand-2)}
+  .opt input{width:auto;margin-top:2px}.opt .ov{font-weight:800;color:var(--brand-2);margin-right:4px}
+  .progress{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin:8px 0 20px}
+  .progress>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));transition:width .3s}
+  .gauge{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .gauge .big{font-size:54px;font-weight:800;line-height:1}
+  .gauge .stage{font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+  .bar{height:9px;background:var(--line);border-radius:999px;overflow:hidden}.bar>div{height:100%;border-radius:999px}
+  .pillar-row{display:flex;align-items:center;gap:12px;margin-bottom:11px}
+  .pillar-row .pl{flex:0 0 220px;font-size:14px;font-weight:600}
+  .pillar-row .bar{flex:1}.pillar-row .val{flex:0 0 40px;text-align:right;font-weight:700;font-size:14px}
+  @media(max-width:640px){.pillar-row .pl{flex-basis:140px}}
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto}
+  .tabs button{background:none;border:none;padding:11px 14px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;font-family:inherit;white-space:nowrap}
+  .tabs button.active{color:var(--brand-2);border-bottom-color:var(--brand-2)}
+  .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);background:#f9fbfe}
+  tr:hover td{background:#f9fbfe}
+  .code-badge{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef4fc;color:var(--brand-ink);padding:3px 8px;border-radius:6px;font-weight:700;font-size:13px;letter-spacing:.06em}
+  .stat{font-size:30px;font-weight:800;color:var(--brand-2);line-height:1}
+  .modal-bg{position:fixed;inset:0;background:rgba(6,38,71,.55);z-index:100;display:grid;place-items:center;padding:20px}
+  .modal{background:#fff;border-radius:16px;max-width:660px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--shadow);padding:26px}
+  .modal h2{margin-top:0}
+  .notice{background:#eaf1fb;border:1px solid #cfe0f6;border-radius:12px;padding:14px 16px;font-size:14px;color:var(--brand-ink)}
+  .notice.warn{background:#fdf6ec;border-color:#f3ddba;color:#7a5320}
+  .notice.ok{background:#e7f6ee;border-color:#bde5cd;color:#1c5f3a}
+  .linkbox{display:flex;gap:8px;align-items:center;background:#f5f8fc;border:1px dashed var(--line);border-radius:10px;padding:8px 10px}
+  .linkbox code{font-family:ui-monospace,monospace;font-size:12px;word-break:break-all;flex:1;color:var(--brand-ink)}
+  footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center}
+  .hidden{display:none!important}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--brand-ink);color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:200;opacity:0;transition:.25s;pointer-events:none}
+  .toast.show{opacity:1}
+  .steps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .steps .st{flex:1;min-width:120px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--muted);background:#fff}
+  .steps .st b{display:block;color:var(--brand-ink);font-size:13px}
+  .steps .st.on{border-color:var(--brand-2);background:#f3f8ff}
 </style>
 </head>
 <body>
-<div id="toast" class="toast"></div><div id="modal-root"></div><div id="header"></div><main id="app"></main>
+<header class="top">
+  <div class="wrap">
+    <div class="logo" onclick="setRoute({})">
+      <img class="brandlogo" src="assets/logo-gobraz-light.png" alt="GoBraz — Comunidade de Empresários"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.querySelector('.name').style.display='block';">
+      <div class="mark-fallback" style="display:none;width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:800;font-size:17px;line-height:36px;text-align:center">Gb</div>
+      <div class="sep"></div>
+      <div class="name">Comunidade<small>de Empresários</small></div>
+    </div>
+    <div id="top-right"></div>
+  </div>
+</header>
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap">GoBraz — Comunidade de Empresários · Uma leitura estruturada de gestão para famílias empresárias</div></footer>
+<div id="modal-root"></div>
+<div id="toast" class="toast"></div>
+
 <script>
-const STORE_KEY='gd_assessment_v3';
-const SCALE=[
- {v:0,t:'Não acontece na prática'},
- {v:1,t:'Acontece de forma informal e inconsistente'},
- {v:2,t:'Existe parcialmente, mas depende muito das pessoas'},
- {v:3,t:'Existe e é usado com frequência'},
- {v:4,t:'Está bem estruturado, é seguido e ajuda a empresa a evoluir'}
-];
-const PERSONAS={
- socio:'Sócio', sucessor:'Sucessor', lider_familiar:'Líder familiar', lider_nao_familiar:'Líder não familiar', consultor:'Consultor', outro:'Outro'
+/* ============================================================================
+   GoBraz Assessment v5 — single-file, sem backend. Storage: localStorage.
+   STORE_KEY = gobraz_assessment_v5
+   Compatível com GitHub Pages e com o esquema de links por query-param.
+
+   [PERMISSÃO] REGRAS CRÍTICAS DE ACESSO — ver comentários marcados abaixo:
+   - Participante comum: só a própria resposta e o próprio resultado.
+   - Sócio: própria resposta + média dos demais (só com 3+ concluídos) +
+            análise final SOMENTE se liberada. NUNCA respostas individuais de
+            outros; NUNCA agrupamento por persona.
+   - Consultor/Admin: acesso total.
+   - A experiência pública NÃO menciona localStorage / protótipo / detalhes técnicos.
+   ============================================================================ */
+const STORE_KEY='gobraz_assessment_v5';
+
+/* ---------------------------- Escalas (A/B/C/D) --------------------------- */
+const SCALES={
+ A:{name:'Existência / prática',opts:[
+   {v:1,t:'Não existe'},
+   {v:2,t:'Existe de forma informal'},
+   {v:3,t:'Existe parcialmente, mas não é seguido com consistência'},
+   {v:4,t:'Existe e é seguido com frequência'},
+   {v:5,t:'Existe, é seguido e gera melhoria na gestão'}]},
+ B:{name:'Clareza / percepção',opts:[
+   {v:1,t:'Não tenho clareza'},
+   {v:2,t:'Tenho pouca clareza'},
+   {v:3,t:'Tenho clareza parcial'},
+   {v:4,t:'Tenho boa clareza'},
+   {v:5,t:'Tenho clareza plena e isso orienta minha atuação'}]},
+ C:{name:'Autonomia / decisão',opts:[
+   {v:1,t:'Quase tudo depende dos sócios'},
+   {v:2,t:'Algumas decisões simples são delegadas'},
+   {v:3,t:'Há autonomia parcial, mas com muitas zonas cinzentas'},
+   {v:4,t:'A autonomia é clara na maior parte das decisões'},
+   {v:5,t:'As alçadas são claras, respeitadas e dão velocidade à gestão'}]},
+ D:{name:'Alinhamento / conflito',opts:[
+   {v:1,t:'Há desalinhamentos frequentes e relevantes'},
+   {v:2,t:'Há desalinhamentos que impactam a rotina'},
+   {v:3,t:'Há alinhamento parcial, com pontos de tensão'},
+   {v:4,t:'Há bom alinhamento na maior parte dos temas'},
+   {v:5,t:'Há alinhamento claro, conversas maduras e critérios respeitados'}]}
 };
-const ROLES={admin:'Admin',consultor:'Consultor',socio:'Sócio',respondente:'Respondente'};
-const COMPANY_SIZES=['Até 10 pessoas','11 a 30 pessoas','31 a 100 pessoas','101 a 300 pessoas','301 a 1.000 pessoas','Acima de 1.000 pessoas'];
-const REVENUES=['Até R$ 1MM','R$ 1MM a R$ 5MM','R$ 5MM a R$ 20MM','R$ 20MM a R$ 70MM','R$ 70MM a R$ 200MM','Acima de R$ 200MM','Prefiro não informar'];
-const SEGMENTS=['Varejo','Franquias','Indústria','Serviços','Saúde','Educação','Construção/Infraestrutura','Tecnologia','Agronegócio','Outro'];
+
+/* ------------------------------- Personas -------------------------------- */
+// Personas públicas (cadastro inicial). 'socio' define papel de Sócio.
+const PERSONAS={socio:'Sócio',sucessor:'Sucessor',lider_familiar:'Líder familiar',lider_nao_familiar:'Líder não familiar'};
+const PKEYS=['socio','sucessor','lider_familiar','lider_nao_familiar'];
+const ROLES={admin:'Consultor',consultor:'Consultor',socio:'Sócio',respondente:'Participante'};
+
+/* ----------------- Dados complementares (benchmark) ---------------------- */
+const SEGMENTS=['Varejo','Franquias','Indústria','Serviços','Saúde','Educação','Construção/Infraestrutura','Tecnologia','Agronegócio','Distribuição/Atacado','Outro'];
+const REVENUES=['Até R$ 5MM','R$ 5MM a R$ 20MM','R$ 20MM a R$ 70MM','R$ 70MM a R$ 200MM','R$ 200MM a R$ 500MM','Acima de R$ 500MM','Prefiro não informar'];
+const HEADCOUNT=['Até 20','21 a 50','51 a 150','151 a 500','501 a 1.500','Acima de 1.500'];
+const MOMENTS=['Crescimento','Profissionalização','Sucessão','Reorganização societária','Conflito ou desalinhamento','Transição de liderança','Outro'];
+
+/* ------------------------------ Termômetro ------------------------------- */
+// Leitura inicial: percepção rápida de maturidade, informalidade e dependência.
 const THERMO=[
- {id:'t1',p:'A empresa tem clareza sobre suas prioridades para os próximos 12 meses.'},
- {id:'t2',p:'As pessoas sabem quem decide o quê nos temas importantes.'},
- {id:'t3',p:'A operação consegue avançar sem depender dos sócios a todo momento.'},
- {id:'t4',p:'As reuniões geram decisões claras, responsáveis e acompanhamento.'},
- {id:'t5',p:'Os principais indicadores são acompanhados e usados para decidir.'},
- {id:'t6',p:'A empresa está se preparando para continuidade, crescimento e sucessão.'}
+ {id:'t1',scale:'B',p:'Há clareza sobre as prioridades da empresa para os próximos 12 meses.'},
+ {id:'t2',scale:'B',p:'As pessoas sabem quem decide o quê nos temas importantes.'},
+ {id:'t3',scale:'C',p:'A operação avança sem depender dos sócios a cada decisão do dia a dia.'},
+ {id:'t4',scale:'A',p:'As reuniões de gestão geram decisões claras, responsáveis e acompanhamento.'},
+ {id:'t5',scale:'A',p:'Os principais indicadores são acompanhados e usados para decidir.'},
+ {id:'t6',scale:'D',p:'Sócios, sucessores e lideranças enxergam a gestão de forma alinhada.'},
+ {id:'t7',scale:'A',p:'A empresa se prepara ativamente para continuidade e sucessão.'}
 ];
+
+/* -------------------------- Avaliação do cluster ------------------------- */
+// Classifica a empresa num estágio geral (C1..C5) para orientar a próxima camada.
+const CLUSTER_Q=[
+ {id:'c1',scale:'C',p:'O quanto a empresa consegue funcionar sem a presença direta do dono/sócios no dia a dia.'},
+ {id:'c2',scale:'A',p:'Existência de processos e rotinas de gestão formalizados e realmente seguidos.'},
+ {id:'c3',scale:'A',p:'Uso de indicadores para acompanhar desempenho e orientar decisões.'},
+ {id:'c4',scale:'A',p:'Clareza de papéis e alçadas entre sócios, familiares e lideranças.'},
+ {id:'c5',scale:'A',p:'Existência de fóruns de gestão ou governança (reuniões estruturadas, conselho, comitês).'},
+ {id:'c6',scale:'A',p:'Preparação estruturada para sucessão e continuidade de longo prazo.'}
+];
+const CLUSTERS={
+ C1:{name:'Gestão centrada no dono',desc:'A empresa depende fortemente do dono/sócios. Decisões, memória e execução se concentram em poucas pessoas.',rec:'Recomendamos fortemente a avaliação da prática com foco em papéis, decisão, ritos e indicadores.'},
+ C2:{name:'Gestão informal em transição',desc:'Já há tentativas de organização, mas os processos ainda dependem das pessoas e não são consistentes.',rec:'Recomendamos a avaliação da prática com foco em papéis, decisão, ritos e indicadores.'},
+ C3:{name:'Gestão em estruturação',desc:'Processos e rotinas começam a se firmar. O desafio é consistência, alçadas e performance.',rec:'Recomendamos a avaliação da prática e atenção a sucessão, alçadas e performance.'},
+ C4:{name:'Gestão profissionalizada',desc:'A gestão funciona com processos, indicadores e autonomia. O foco passa a ser governança e continuidade.',rec:'Recomendamos aprofundamento em governança, sucessão, fóruns, legado e continuidade.'},
+ C5:{name:'Governança em evolução',desc:'A empresa opera com maturidade de gestão e busca aprimorar governança, sucessão e legado.',rec:'Recomendamos aprofundamento em governança, sucessão, fóruns, legado e continuidade.'}
+};
+function clusterOf(score){ // score 1..5
+ if(score<2.0)return'C1';if(score<2.8)return'C2';if(score<3.6)return'C3';if(score<4.3)return'C4';return'C5';}
+
+/* ------------------------- Avaliação da prática -------------------------- */
+// 8 pilares, até 3 perguntas cada, adaptadas por persona. Cada pergunta mede a
+// mesma tensão pela lente de cada persona e aponta para o tipo de escala adequado.
+// t: {socio, sucessor, lider_familiar, lider_nao_familiar}
+function ptxt(s,su,lf,ln){return{socio:s,sucessor:su,lider_familiar:lf,lider_nao_familiar:ln};}
 const PILLARS=[
- {id:'direcao',name:'Direção e Prioridades',desc:'Clareza de rumo, prioridades e critérios de escolha.',qs:{
-  socio:['Tenho clareza das prioridades reais da empresa para os próximos 12 meses.','As prioridades são comunicadas de forma que a liderança consiga agir.','As decisões estratégicas seguem critérios claros, não apenas urgência ou intuição.'],
-  sucessor:['Entendo claramente quais são as prioridades da empresa para os próximos 12 meses.','Sei como meu papel atual contribui para essas prioridades.','Percebo critérios claros nas principais escolhas estratégicas.'],
-  lider_familiar:['Consigo traduzir as prioridades da empresa em ações da minha área.','A relação familiar não confunde minha leitura sobre o que é prioridade.','As prioridades são suficientemente claras para orientar decisões do dia a dia.'],
-  lider_nao_familiar:['Recebo clareza suficiente sobre as prioridades da empresa.','Consigo transformar as prioridades em metas e ações da minha área.','As mudanças de prioridade são explicadas com contexto e critério.'] }},
- {id:'papeis',name:'Papéis e Responsabilidades',desc:'Clareza sobre quem faz, decide, acompanha e presta contas.',qs:{
-  socio:['Os papéis dos sócios, líderes e familiares estão claros na prática.','As lideranças sabem o que podem decidir sem consultar os sócios.','Quando há problemas relevantes, fica claro quem deve conduzir a solução.'],
-  sucessor:['Meu papel atual na empresa é claro para mim e para os demais.','Tenho clareza sobre quais responsabilidades são minhas hoje.','Sei quais decisões posso tomar e quais ainda dependem dos sócios.'],
-  lider_familiar:['Meu papel como liderança é claro e não se mistura com minha relação familiar.','As responsabilidades entre familiares e não familiares são tratadas com critérios profissionais.','Quando há problema na minha área, fica claro qual é minha responsabilidade.'],
-  lider_nao_familiar:['Meu papel e minhas responsabilidades são claros na prática.','Tenho clareza sobre quais decisões posso tomar sem consultar os sócios.','A divisão de responsabilidades evita retrabalho, conflito ou zonas cinzentas.'] }},
- {id:'decisao',name:'Decisão e Autonomia',desc:'Capacidade de decidir sem centralização excessiva.',qs:{
-  socio:['A empresa consegue tomar decisões importantes sem depender exclusivamente de mim ou de poucos sócios.','Delegamos decisões com clareza de limites, critérios e responsabilidades.','A autonomia das lideranças é compatível com a maturidade esperada para suas funções.'],
-  sucessor:['Tenho espaço claro para participar de decisões compatíveis com meu estágio.','Existe caminho visível para ampliar minha autonomia na empresa.','As decisões sobre minha evolução são tratadas com critérios claros.'],
-  lider_familiar:['Tenho autonomia real para decidir na minha área, com critérios claros.','Minhas decisões são avaliadas mais pelo mérito do que pela relação familiar.','A empresa evita centralizar decisões que poderiam estar na liderança.'],
-  lider_nao_familiar:['Tenho autonomia real para decidir dentro da minha área.','Sei quando preciso envolver os sócios e quando posso seguir.','A empresa não trava excessivamente por dependência de aprovação dos sócios.'] }},
- {id:'execucao',name:'Ritmos de Gestão e Execução',desc:'Rotinas, reuniões, disciplina e acompanhamento.',qs:{
-  socio:['As reuniões de gestão têm pauta, decisão, responsável e prazo.','As decisões tomadas são acompanhadas até virarem execução.','Existe uma rotina mínima de prestação de contas entre áreas e sócios.'],
-  sucessor:['Participo ou acompanho rituais de gestão que ajudam a entender o negócio.','As reuniões em que participo geram clareza sobre próximos passos.','Vejo disciplina para acompanhar decisões e pendências.'],
-  lider_familiar:['Minha área participa de rituais de gestão com disciplina e clareza.','As decisões das reuniões viram ações acompanhadas.','Consigo prestar contas de forma objetiva sobre avanços, problemas e prioridades.'],
-  lider_nao_familiar:['As reuniões que envolvem minha área são produtivas e objetivas.','Saio das reuniões sabendo o que deve ser feito, por quem e até quando.','Existe acompanhamento consistente das decisões e planos de ação.'] }},
- {id:'indicadores',name:'Indicadores e Resultados',desc:'Uso de dados para acompanhar desempenho e corrigir rota.',qs:{
-  socio:['Acompanhamos indicadores relevantes para entender a saúde do negócio.','Quando um resultado foge do esperado, buscamos causa e ação corretiva.','As metas orientam decisões, não apenas cobranças pontuais.'],
-  sucessor:['Tenho acesso a indicadores que ajudam a entender o desempenho da empresa.','Entendo como minhas entregas se conectam com resultados do negócio.','Os resultados são discutidos com contexto e aprendizado.'],
-  lider_familiar:['Minha área acompanha indicadores claros de desempenho.','Uso dados para explicar resultados e propor melhorias.','A avaliação de performance é baseada em critérios e evidências.'],
-  lider_nao_familiar:['Tenho indicadores claros para acompanhar minha área.','Os dados são usados para tomar decisões e priorizar ações.','As metas são acompanhadas durante o período, não apenas no fechamento.'] }},
- {id:'pessoas',name:'Pessoas e Liderança',desc:'Preparação de lideranças, desenvolvimento e retenção.',qs:{
-  socio:['Temos lideranças preparadas para sustentar o crescimento da empresa.','A empresa desenvolve pessoas-chave de forma intencional.','Não dependemos excessivamente de poucas pessoas para manter a operação rodando.'],
-  sucessor:['Recebo desenvolvimento compatível com o papel que posso ocupar no futuro.','A empresa deixa claro o que espera de mim em comportamento, entrega e evolução.','Há conversas construtivas sobre preparo, desempenho e próximos passos.'],
-  lider_familiar:['Tenho clareza sobre como meu desempenho como liderança é avaliado.','A empresa desenvolve líderes familiares e não familiares com critérios justos.','Consigo dar e receber feedbacks sem que a relação familiar atrapalhe.'],
-  lider_nao_familiar:['Recebo orientação e feedback suficientes para evoluir como liderança.','A empresa tem critérios claros para avaliar desempenho de líderes.','Vejo espaço real para crescimento profissional dentro da empresa.'] }},
- {id:'continuidade',name:'Família, Continuidade e Sucessão',desc:'Separação entre família, propriedade e gestão; preparação para continuidade.',qs:{
-  socio:['As relações familiares ou societárias não prejudicam decisões importantes da empresa.','Existem conversas ou combinados sobre sucessão e continuidade.','A remuneração, retirada e participação dos sócios seguem critérios suficientemente claros.'],
-  sucessor:['Existe clareza sobre meu papel atual e possível papel futuro na empresa.','As conversas sobre sucessão são tratadas com maturidade e critérios.','Percebo separação saudável entre relações familiares e decisões profissionais.'],
-  lider_familiar:['A empresa separa razoavelmente família, propriedade e gestão.','As oportunidades para familiares são tratadas com critérios claros.','Conflitos familiares não prejudicam de forma relevante a rotina da empresa.'],
-  lider_nao_familiar:['As relações familiares ou societárias não atrapalham de forma relevante meu trabalho.','A empresa transmite segurança sobre continuidade e sucessão.','Percebo critérios profissionais na participação de familiares na gestão.'] }}
+ {id:'direcao',name:'Direção e prioridades',desc:'Clareza de rumo, prioridades e critérios de escolha.',qs:[
+   {scale:'B',t:ptxt(
+     'Tenho clareza das prioridades reais da empresa para os próximos 12 meses.',
+     'Entendo com clareza quais são as prioridades da empresa para os próximos 12 meses.',
+     'Tenho clareza das prioridades da empresa e consigo traduzi-las para minha área.',
+     'Recebo clareza suficiente sobre as prioridades da empresa para orientar minha área.')},
+   {scale:'A',t:ptxt(
+     'As prioridades são comunicadas de forma que a liderança consiga agir.',
+     'As prioridades chegam a mim de forma clara e orientam minhas entregas.',
+     'As prioridades são comunicadas com critério e não apenas por urgência.',
+     'As mudanças de prioridade são explicadas com contexto e critério.')}]},
+ {id:'papeis',name:'Papéis e responsabilidades',desc:'Quem faz, decide, acompanha e presta contas.',qs:[
+   {scale:'B',t:ptxt(
+     'Os papéis de sócios, familiares e lideranças estão claros na prática.',
+     'Meu papel atual é claro para mim e para os demais.',
+     'Meu papel como liderança é claro e não se confunde com minha relação familiar.',
+     'Meu papel e minhas responsabilidades são claros na prática.')},
+   {scale:'A',t:ptxt(
+     'Quando surge um problema relevante, fica claro quem deve conduzir a solução.',
+     'Sei quais responsabilidades são minhas hoje e a quem recorrer.',
+     'As responsabilidades entre familiares e não familiares seguem critérios profissionais.',
+     'A divisão de responsabilidades evita retrabalho e zonas cinzentas.')}]},
+ {id:'decisao',name:'Decisão e autonomia',desc:'Capacidade de decidir sem centralização excessiva.',qs:[
+   {scale:'C',t:ptxt(
+     'As lideranças sabem quais decisões podem tomar sem consultar os sócios.',
+     'Tenho clareza sobre quais decisões posso tomar hoje e quais dependem dos sócios.',
+     'Minha autonomia é clara e não se confunde com minha relação familiar.',
+     'Tenho autonomia real para decidir na minha área sem depender excessivamente dos sócios.')},
+   {scale:'D',t:ptxt(
+     'As decisões importantes não travam por dependência ou desalinhamento entre sócios.',
+     'As decisões sobre minha evolução são tratadas com critério e sem ruído.',
+     'Minhas decisões são avaliadas pelo mérito, sem interferência da relação familiar.',
+     'Sei quando envolver os sócios e quando seguir, sem zonas cinzentas frequentes.')}]},
+ {id:'ritos',name:'Ritos de gestão e execução',desc:'Rotinas, reuniões, disciplina e acompanhamento.',qs:[
+   {scale:'A',t:ptxt(
+     'As reuniões de gestão têm pauta, decisão, responsável e prazo.',
+     'Participo de ritos de gestão que ajudam a entender o negócio e os próximos passos.',
+     'Minha área participa de ritos de gestão com disciplina e clareza.',
+     'As reuniões que envolvem minha área são objetivas e geram próximos passos claros.')},
+   {scale:'A',t:ptxt(
+     'As decisões tomadas são acompanhadas até virarem execução.',
+     'As decisões das reuniões que acompanho viram ações com acompanhamento.',
+     'Consigo prestar contas de forma objetiva sobre avanços, problemas e prioridades.',
+     'Existe acompanhamento consistente das decisões e planos de ação.')}]},
+ {id:'indicadores',name:'Indicadores e performance',desc:'Uso de dados para acompanhar desempenho e corrigir rota.',qs:[
+   {scale:'A',t:ptxt(
+     'Acompanhamos indicadores relevantes e agimos quando o resultado foge do esperado.',
+     'Tenho acesso a indicadores que ajudam a entender o desempenho da empresa.',
+     'Minha área acompanha indicadores claros e eu os uso para propor melhorias.',
+     'Tenho indicadores claros e os uso para decidir e priorizar ações.')},
+   {scale:'D',t:ptxt(
+     'As decisões importantes se baseiam mais em dados do que em percepção.',
+     'Os resultados são discutidos com contexto e aprendizado, não só cobrança.',
+     'Minha performance é avaliada por critérios e evidências claros.',
+     'As metas são acompanhadas durante o período, não apenas no fechamento.')}]},
+ {id:'pessoas',name:'Pessoas e liderança',desc:'Preparação de lideranças, desenvolvimento e retenção.',qs:[
+   {scale:'A',t:ptxt(
+     'Temos lideranças preparadas para sustentar o crescimento da empresa.',
+     'Recebo desenvolvimento compatível com o papel que posso ocupar no futuro.',
+     'A empresa desenvolve líderes familiares e não familiares com critérios justos.',
+     'Recebo orientação e feedback suficientes para evoluir como liderança.')},
+   {scale:'D',t:ptxt(
+     'Não dependemos excessivamente de poucas pessoas para manter a operação.',
+     'Há conversas construtivas e alinhadas sobre meu preparo e próximos passos.',
+     'Dou e recebo feedback sem que a relação familiar atrapalhe.',
+     'A empresa tem critérios claros e justos para avaliar líderes.')}]},
+ {id:'familia',name:'Família, sociedade e empresa',desc:'Separação entre família, propriedade e gestão.',qs:[
+   {scale:'D',t:ptxt(
+     'As relações familiares ou societárias não prejudicam decisões importantes.',
+     'Percebo separação saudável entre relações familiares e decisões profissionais.',
+     'As fronteiras entre família, sociedade e gestão são claras no meu dia a dia.',
+     'As relações familiares não atrapalham de forma relevante meu trabalho.')},
+   {scale:'A',t:ptxt(
+     'Existem combinados claros sobre participação, retirada e papéis dos sócios.',
+     'As conversas sobre sucessão e futuro são tratadas com maturidade e critério.',
+     'As oportunidades para familiares são tratadas com critérios explícitos.',
+     'A participação de familiares na gestão segue critérios profissionais.')}]},
+ {id:'continuidade',name:'Continuidade e sucessão',desc:'Preparação para continuidade de longo prazo.',qs:[
+   {scale:'A',t:ptxt(
+     'A empresa se prepara ativamente para sucessão e continuidade.',
+     'Existe clareza sobre meu papel atual e possível papel futuro na empresa.',
+     'A empresa trata continuidade e sucessão de forma estruturada.',
+     'A empresa transmite segurança sobre continuidade e sucessão.')},
+   {scale:'C',t:ptxt(
+     'Funções e decisões críticas não dependem demais de pessoas específicas.',
+     'Tenho preparo e legitimidade crescentes para assumir mais responsabilidades.',
+     'A continuidade não depende excessivamente de uma ou duas pessoas-chave.',
+     'A saída temporária de uma pessoa-chave não paralisaria a operação.')}]}
 ];
-function defaultState(){return{version:3,users:[],groups:[],responses:[],interviews:[],analysis:[],current:null,audit:[],seeded:false}}
-function load(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||defaultState()}catch{return defaultState()}}
-function save(s){localStorage.setItem(STORE_KEY,JSON.stringify(s))}
+
+/* ----------------- Roteiro do aprofundamento consultivo ------------------ */
+const APROF_CORE=[
+ 'Como você descreveria a forma como a empresa é gerida hoje, na prática?',
+ 'Quais são as principais forças da empresa que precisam ser preservadas?',
+ 'Quais são hoje os principais problemas, travas ou fragilidades que mais afetam a evolução da empresa?',
+ 'Conte um exemplo recente de decisão importante que funcionou bem. O que fez essa decisão funcionar?',
+ 'Conte um exemplo recente de decisão que travou, gerou conflito ou precisou ser refeita. O que faltou nesse processo?',
+ 'Se a empresa pudesse melhorar apenas três temas nos próximos 12 meses, quais deveriam ser priorizados?'
+];
+const APROF_PERSONA={
+ socio:['Que legado você deseja deixar para a empresa, a família e os próximos líderes?','O que você já delega bem e o que ainda sente dificuldade de soltar?','Você imagina seguir no dia a dia da operação ou migrar para um papel mais estratégico (conselho, mentoria, sociedade)?','Que conversas importantes ainda estão pendentes entre família, sociedade e gestão?'],
+ sucessor:['Qual papel você deseja ocupar no futuro: gestão executiva, sociedade, conselho, família empresária ou outro?','Você sente que possui preparo, autonomia e legitimidade suficientes? O que ainda falta?','O que a geração atual construiu que deve ser preservado? E o que precisa evoluir?','Como você avalia a comunicação entre gerações sobre futuro, sucessão, poder e patrimônio?'],
+ lider_familiar:['Em quais situações ser familiar ajuda sua atuação e em quais torna mais difícil?','Sua atuação é avaliada por critérios profissionais claros ou a relação familiar interfere?','Onde estão mais claras — ou mais confusas — as fronteiras entre família, sociedade e gestão?','Que conversas entre familiares, sócios ou lideranças reduziriam ruídos?'],
+ lider_nao_familiar:['Em quais situações a dinâmica familiar fortalece a gestão e em quais gera ruídos?','Você possui autonomia, alçada e clareza suficientes para executar sua função? Onde há limites?','Quais decisões deveriam ser mais profissionais, baseadas em dados, processos e fóruns formais?','O que precisaria mudar para a empresa atrair, desenvolver e reter lideranças de alto nível?']
+};
+const APROF_STATUS=['Solicitado','Agendado','Realizado','Análise em elaboração','Análise liberada para sócios'];
+
+/* ------------------------------- Estado ---------------------------------- */
+function defaultState(){return{version:5,users:[],groups:[],responses:[],interviews:[],analysis:[],current:null,seeded:false};}
+
+/* ============================================================================
+   CAMADA DE STORAGE (StorageProvider)
+   ----------------------------------------------------------------------------
+   Toda a lógica de aplicação continua trabalhando com o estado em memória `S`
+   e chamando load()/save(S). A PERSISTÊNCIA é delegada a um provider:
+     - LocalStorageProvider: só localStorage (funciona offline, sem backend).
+     - GoogleSheetsProvider : cache local + sincronização via Apps Script.
+   O provider ativo é escolhido por STORAGE_CONFIG. Trocar de provider NÃO exige
+   reescrever a lógica da aplicação.
+   ============================================================================ */
+const CFG_KEY='gobraz_cfg_v5';
+const PENDING_KEY='gobraz_pending_v5';
+function loadCfg(){try{return JSON.parse(localStorage.getItem(CFG_KEY))||{};}catch{return{};}}
+function saveCfg(){localStorage.setItem(CFG_KEY,JSON.stringify({provider:STORAGE_CONFIG.provider,scriptUrl:STORAGE_CONFIG.scriptUrl,adminToken:STORAGE_CONFIG.adminToken}));}
+// Precedência: defaults <- localStorage (painel do consultor) <- window.GOBRAZ_CONFIG (deploy).
+// adminToken NUNCA vem do objeto público global — só do localStorage do consultor.
+const STORAGE_CONFIG=(function(){
+ const saved=loadCfg();const glob=(typeof window!=='undefined'&&window.GOBRAZ_CONFIG)||{};
+ const cfg={provider:'local',scriptUrl:'',adminToken:'',publicMode:true};
+ Object.assign(cfg,{provider:saved.provider||cfg.provider,scriptUrl:saved.scriptUrl||'',adminToken:saved.adminToken||''});
+ if(glob.provider)cfg.provider=glob.provider;
+ if(glob.scriptUrl)cfg.scriptUrl=glob.scriptUrl;
+ if(glob.publicMode!==undefined)cfg.publicMode=glob.publicMode;
+ return cfg;
+})();
+
+// Estados de sincronização exibidos apenas no painel do consultor.
+const SyncState={status:'Local',lastSync:null,remoteCounts:null};
+function setSyncStatus(s){SyncState.status=s;const el=document.getElementById('sync-status');if(el)el.textContent=s;}
+function loadPending(){try{return JSON.parse(localStorage.getItem(PENDING_KEY))||[];}catch{return[];}}
+function savePending(p){localStorage.setItem(PENDING_KEY,JSON.stringify(p));}
+function queuePending(kind,obj){const p=loadPending();p.push({kind,obj,at:now()});savePending(p);}
+
+// Chamada HTTP ao Apps Script. POST usa text/plain para evitar preflight CORS.
+async function apiCall(method,action,params={},body=null){
+ if(!STORAGE_CONFIG.scriptUrl)throw new Error('scriptUrl não configurado');
+ const url=new URL(STORAGE_CONFIG.scriptUrl);url.searchParams.set('action',action);
+ Object.entries(params).forEach(([k,v])=>{if(v!=null)url.searchParams.set(k,v);});
+ const opt={method,redirect:'follow'};
+ if(method==='POST'){opt.headers={'Content-Type':'text/plain;charset=utf-8'};opt.body=JSON.stringify(Object.assign({action},body||{}));}
+ const res=await fetch(url.toString(),opt);
+ return await res.json();
+}
+
+const LocalStorageProvider={
+ name:'local',
+ async init(){setSyncStatus('Local');},
+ readCache(){try{return JSON.parse(localStorage.getItem(STORE_KEY))||defaultState();}catch{return defaultState();}},
+ persist(state){localStorage.setItem(STORE_KEY,JSON.stringify(state));},
+ async pushEntity(){/* nada a fazer: tudo já está no localStorage */},
+ async pull(){return null;},
+ async publicSummary(){return null;} // no modo local a média usa o cache local
+};
+
+const GoogleSheetsProvider={
+ name:'sheets',
+ async init(){
+  setSyncStatus('Sincronizando');
+  try{const r=await apiCall('GET','health');setSyncStatus(r&&r.ok?'Sincronizado':'Erro de sincronização');SyncState.lastSync=now();}
+  catch(e){setSyncStatus('Offline/cache local');}
+ },
+ readCache(){return LocalStorageProvider.readCache();},        // cache local para UX
+ persist(state){LocalStorageProvider.persist(state);},          // sempre mantém cópia local
+ // Envia uma entidade ao Sheets; em falha, guarda em fila de pendências (fallback local).
+ async pushEntity(kind,obj){
+  const map={user:'upsertUser',group:'upsertGroup',response:'upsertResponse',interview:'upsertInterview',analysis:'upsertAnalysis'};
+  const action=map[kind];if(!action)return;
+  try{setSyncStatus('Sincronizando');const r=await apiCall('POST',action,{},{[kind]:obj});
+   if(!r||!r.ok)throw new Error(r&&r.error||'falha');setSyncStatus('Sincronizado');SyncState.lastSync=now();}
+  catch(e){queuePending(kind,obj);setSyncStatus('Offline/cache local');}
+ },
+ // Reenvia pendências acumuladas.
+ async flush(){
+  let p=loadPending();if(!p.length)return{sent:0,failed:0};let sent=0,failed=0;const rest=[];
+  for(const item of p){const map={user:'upsertUser',group:'upsertGroup',response:'upsertResponse',interview:'upsertInterview',analysis:'upsertAnalysis'};
+   try{const r=await apiCall('POST',map[item.kind],{},{[item.kind]:item.obj});if(r&&r.ok)sent++;else{failed++;rest.push(item);}}
+   catch{failed++;rest.push(item);}}
+  savePending(rest);return{sent,failed};
+ },
+ // [PERMISSÃO] painel consultor: exige adminToken; traz a base consolidada.
+ async pull(){
+  const r=await apiCall('GET','adminBootstrap',{adminToken:STORAGE_CONFIG.adminToken});
+  if(!r||!r.ok)throw new Error(r&&r.error||'falha no adminBootstrap');
+  return r.data;
+ },
+ // [PERMISSÃO] resumo público anonimizado: nunca retorna PII nem respostas individuais.
+ async publicSummary(groupId,selfResponseId){
+  try{const r=await apiCall('GET','publicGroupSummary',{groupId,selfResponseId});return r&&r.ok?r.data:null;}catch{return null;}
+ }
+};
+
+// Fachada usada pela aplicação. Mantém load()/save() síncronos sobre o cache local.
+const Sync={
+ provider:LocalStorageProvider,
+ async init(){this.provider=STORAGE_CONFIG.provider==='sheets'?GoogleSheetsProvider:LocalStorageProvider;await this.provider.init();
+  if(this.provider===GoogleSheetsProvider){try{await GoogleSheetsProvider.flush();}catch{}}},
+ persist(state){this.provider.persist(state);},
+ push(kind,obj){try{this.provider.pushEntity&&this.provider.pushEntity(kind,obj);}catch{}},
+ async pull(){return this.provider.pull?this.provider.pull():null;},
+ async publicSummary(g,s){return this.provider.publicSummary?this.provider.publicSummary(g,s):null;},
+ isSheets(){return this.provider===GoogleSheetsProvider;}
+};
+
+function load(){return (Sync.provider||LocalStorageProvider).readCache();}
+function save(s){(Sync.provider||LocalStorageProvider).persist(s);}
 let S=load();
-function seed(){if(S.seeded)return;S.users.push({id:'u-admin',name:'Administrador',email:'admin@gestaododono.com.br',phone:'',role:'admin',persona:'consultor',createdAt:now()});S.seeded=true;save(S)}
-function now(){return new Date().toISOString()}function id(p='id'){return p+'_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)}
-function code(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let r='';do{r='';for(let i=0;i<6;i++)r+=c[Math.floor(Math.random()*c.length)]}while(S.groups.some(g=>g.code===r));return r}
-function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function qs(){return Object.fromEntries(new URLSearchParams(location.search).entries())}
-function setRoute(params){const url=new URL(location.href);url.search='';Object.entries(params).forEach(([k,v])=>{if(v!==undefined&&v!==null&&v!=='')url.searchParams.set(k,v)});history.pushState(null,'',url);render()}
-function scoreColor(v){return v>=3.5?'#10B981':v>=2.5?'#2557B7':v>=1.5?'#F59E0B':'#EF4444'}
-function resultLabel(v){if(v>=3.5)return'Boa base de gestão';if(v>=2.5)return'Gestão em estruturação';if(v>=1.5)return'Gestão ainda informal';return'Gestão muito dependente'}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
-function currentUser(){return S.current?S.users.find(u=>u.id===S.current):null}
-function canSeeConsolidated(u){return u?.role==='admin'||u?.role==='consultor'||u?.role==='socio'||u?.isSocio}
-function isAdmin(u){return u?.role==='admin'||u?.role==='consultor'}
-function groupByCode(c){return S.groups.find(g=>g.code===String(c||'').toUpperCase())}
-function respById(rid){return S.responses.find(r=>r.id===rid)}
-function userByEmail(email){return S.users.find(u=>u.email?.toLowerCase()===String(email||'').toLowerCase())}
-function completedDetailed(groupId){return S.responses.filter(r=>r.groupId===groupId&&r.type==='detalhada'&&r.status==='completed')}
-function calcResponse(r){const vals=Object.values(r.answers||{}).filter(x=>typeof x==='number');return vals.length?+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2):0}
-function calcPillars(r){let out={};PILLARS.forEach(p=>{const vals=[];for(let i=0;i<3;i++){const k=p.id+'_'+i;if(typeof r.answers?.[k]==='number')vals.push(r.answers[k])}out[p.id]=vals.length?+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2):null});return out}
-function othersAverage(groupId,selfId){const all=completedDetailed(groupId);if(all.length<3)return null;const others=all.filter(r=>r.id!==selfId);if(!others.length)return null;const vals=others.map(calcResponse);return +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2)}
-function avgPillars(groupId,selfId){const all=completedDetailed(groupId);if(all.length<3)return null;const others=all.filter(r=>r.id!==selfId);if(!others.length)return null;const out={};PILLARS.forEach(p=>{const vals=[];others.forEach(r=>{const ps=calcPillars(r)[p.id];if(ps!=null)vals.push(ps)});out[p.id]=vals.length?+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2):null});return out}
-function getOrCreateGroup(company, extra={}){let g=S.groups.find(x=>x.name?.toLowerCase()===company.toLowerCase());if(!g){g={id:id('g'),code:code(),name:company,status:'active',createdAt:now(),...extra};S.groups.push(g);save(S)}return g}
-function renderHeader(){const u=currentUser();const h=document.getElementById('header');if(!u){h.innerHTML='';return}h.innerHTML=`<div class="header"><div class="logo" onclick="setRoute({})"><div class="small">Gestão de</div><div class="big">Dono</div></div><div class="hdr-actions"><span class="chip">${esc(u.name)} · ${esc(ROLES[u.role]||u.role)}</span>${isAdmin(u)?'<button class="btn btn-secondary btn-sm" onclick="setRoute({admin:\'1\'})">Painel admin</button>':''}<button class="btn btn-ghost btn-sm" onclick="logout()">Sair</button></div></div>`}
-function logout(){S.current=null;save(S);setRoute({})}
-function render(){S=load();seed();renderHeader();const p=qs(),u=currentUser();if(p.admin)return u?renderAdmin():renderAdminLogin();if(p.result)return u?renderResult(p.result):renderIdentify('resultado',p);if(p.flow==='termometro')return renderIdentify('termometro',p);if(p.flow==='detalhada')return renderIdentify('detalhada',p);if(p.flow==='termometro_form'||p.flow==='detalhada_form')return u?renderForm(p.rid):renderLanding();if(p.flow==='aprofundamento')return u&&isAdmin(u)?renderInterview(p):renderAdminLogin();if(u)return u.role==='admin'||u.role==='consultor'?renderAdmin():renderClientHome();return renderLanding()}
-function renderLanding(){document.getElementById('app').innerHTML=`<div class="hero"><div class="hero-card"><div class="hero-logo"><div class="small">Gestão de</div><div class="big">Dono</div></div><h1>Leitura de maturidade da gestão para empresas de dono</h1><p>Este protótipo funciona por links de jornada. Clientes não veem um menu de blocos; cada convite direciona para a experiência correta.</p><div class="grid2"><div class="card"><div class="card-title">Acesso por convite</div><div class="card-sub">Use o link recebido para responder o termômetro ou a avaliação detalhada.</div><button class="btn btn-primary btn-block" onclick="setRoute({flow:'termometro'})">Responder termômetro público</button></div><div class="card"><div class="card-title">Admin / consultor</div><div class="card-sub">Criar grupos, gerar links, ver respostas, reabrir formulários e registrar aprofundamentos.</div><button class="btn btn-secondary btn-block" onclick="setRoute({admin:'1'})">Entrar como admin</button></div></div><div class="alert warn mt16"><b>Protótipo localStorage:</b> dados ficam neste navegador. Use exportar/importar JSON para consolidar bases entre máquinas.</div></div></div>`}
-function renderAdminLogin(){document.getElementById('app').innerHTML=`<div class="hero"><div class="hero-card" style="max-width:480px"><div class="hero-logo"><div class="small">Gestão de</div><div class="big">Dono</div></div><h1>Acesso admin</h1><div id="err"></div><div class="field"><label>E-mail</label><input id="adm-email" value="admin@gestaododono.com.br"></div><div class="field"><label>Senha</label><input id="adm-pass" type="password" value="admin123" onkeydown="if(event.key==='Enter')adminLogin()"></div><button class="btn btn-primary btn-block" onclick="adminLogin()">Entrar</button><button class="btn btn-ghost btn-block mt8" onclick="setRoute({})">Voltar</button></div></div>`}
-function adminLogin(){const email=document.getElementById('adm-email').value.trim().toLowerCase(), pass=document.getElementById('adm-pass').value;if(email==='admin@gestaododono.com.br'&&pass==='admin123'){S.current='u-admin';save(S);setRoute({admin:'1'});return}document.getElementById('err').innerHTML='<div class="alert error">Credenciais inválidas. Demo: admin@gestaododono.com.br / admin123</div>'}
-function renderIdentify(flow,p){const codeParam=(p.codigo||'').toUpperCase();const group=codeParam?groupByCode(codeParam):null;const persona=p.persona&&PERSONAS[p.persona]?p.persona:'';const title=flow==='termometro'?'Antes de começar o termômetro':flow==='detalhada'?'Antes de começar a avaliação detalhada':'Identificação';const desc=flow==='termometro'?'Cadastro curto para liberar a leitura rápida. Depois, ao visualizar resultados consolidados, você poderá complementar dados para benchmarks anonimizados.':'Cadastro curto para vincular sua resposta ao grupo empresarial correto.';document.getElementById('app').innerHTML=`<div class="wrap narrow"><div class="card soft"><div class="badge b-blue mb12">${flow==='termometro'?'Termômetro':'Avaliação detalhada'}</div><div class="card-title">${title}</div><div class="card-sub">${desc}</div>${group?`<div class="alert info">Grupo identificado: <b>${esc(group.name)}</b> · código <span class="code">${esc(group.code)}</span></div>`:flow==='detalhada'?`<div class="alert warn">Nenhum código de grupo foi informado. O sistema criará um grupo a partir do nome da empresa.</div>`:''}<div id="form-err"></div><div class="grid2"><div class="field"><label>Nome completo <span class="req">*</span></label><input id="name"></div><div class="field"><label>E-mail <span class="req">*</span></label><input id="email" type="email"></div></div><div class="grid2"><div class="field"><label>WhatsApp <span class="req">*</span></label><input id="phone" placeholder="(00) 00000-0000"></div><div class="field"><label>Empresa <span class="req">*</span></label><input id="company" value="${esc(group?.name||'')}"></div></div><div class="grid2"><div class="field"><label>Cargo / função <span class="req">*</span></label><input id="position"></div><div class="field"><label>Persona nesta resposta <span class="req">*</span></label><select id="persona"><option value="">Selecione...</option>${Object.entries(PERSONAS).filter(([k])=>k!=='consultor').map(([k,v])=>`<option value="${k}" ${persona===k?'selected':''}>${v}</option>`).join('')}</select><div class="hint">A persona direciona as perguntas da avaliação detalhada.</div></div></div><div class="grid2"><div class="field"><label>Você é sócio(a) da empresa? <span class="req">*</span></label><select id="isSocio"><option value="">Selecione...</option><option value="1">Sim</option><option value="0">Não</option></select></div><div class="field"><label>Área de atuação</label><input id="area" placeholder="Ex.: Comercial, Operações, Financeiro..."></div></div><label style="display:flex;gap:9px;align-items:flex-start;font-weight:600"><input id="consent" type="checkbox" style="width:auto;margin-top:3px"> <span class="small muted">Autorizo o uso das respostas para análise de maturidade da gestão. Resultados de benchmarking, quando houver, serão disponibilizados de forma anonimizada.</span></label><div class="alert info mt16"><b>Construção coletiva de saberes:</b> depois do resultado, você poderá completar o cadastro. À medida que outros empresários responderem, visões anonimizadas poderão ajudar a entender sua posição versus outros grupos empresariais.</div><button class="btn btn-primary btn-block mt16" onclick="submitIdentify('${flow}','${esc(codeParam)}')">Continuar</button></div></div>`}
-function submitIdentify(flow,codeParam){const get=x=>document.getElementById(x).value.trim();const data={name:get('name'),email:get('email').toLowerCase(),phone:get('phone'),company:get('company'),position:get('position'),persona:get('persona'),isSocio:get('isSocio')==='1',area:get('area'),consent:document.getElementById('consent').checked};let missing=['name','email','phone','company','position','persona'].filter(k=>!data[k]);if(missing.length||!data.consent||!data.email.includes('@')){document.getElementById('form-err').innerHTML='<div class="alert error">Preencha os campos obrigatórios, informe um e-mail válido e aceite o uso das informações.</div>';return}let group=codeParam?groupByCode(codeParam):null;if(!group)group=getOrCreateGroup(data.company);let u=userByEmail(data.email);if(!u){u={id:id('u'),role:data.isSocio?'socio':'respondente',createdAt:now()};S.users.push(u)}Object.assign(u,data,{role:u.role==='admin'?'admin':data.isSocio?'socio':'respondente',updatedAt:now()});S.current=u.id;let existing=S.responses.find(r=>r.userId===u.id&&r.groupId===group.id&&r.type===flow&&r.status==='completed'&&!r.reopen);save(S);if(existing){setRoute({result:existing.id});return}const r={id:id('r'),type:flow,userId:u.id,groupId:group.id,persona:data.persona,status:'in_progress',answers:{},createdAt:now(),updatedAt:now(),reopen:false};S.responses.push(r);save(S);if(flow==='termometro')setRoute({flow:'termometro_form',rid:r.id});else setRoute({flow:'detalhada_form',rid:r.id});renderForm(r.id)}
-function renderForm(rid){const p=qs();const r=respById(rid||p.rid);if(!r)return setRoute({});const u=S.users.find(x=>x.id===r.userId),g=S.groups.find(x=>x.id===r.groupId);const isThermo=r.type==='termometro';const questions=isThermo?THERMO:buildDetailedQuestions(r.persona);const answered=Object.keys(r.answers||{}).length;const pct=Math.round(answered/questions.length*100);document.getElementById('app').innerHTML=`<div class="wrap narrow"><div class="flex between centered mb12"><div><div class="badge ${isThermo?'b-blue':'b-purple'}">${isThermo?'Termômetro':'Avaliação detalhada'}</div><h2 style="margin:8px 0 4px">${isThermo?'Leitura rápida de gestão':'Avaliação detalhada por percepção'}</h2><div class="small muted">${esc(g.name)} · ${esc(PERSONAS[r.persona]||r.persona)} · ${pct}% concluído</div></div><span class="code">${esc(g.code)}</span></div><div class="progress mb16"><div style="width:${pct}%"></div></div><div class="alert info">Responda com base no que acontece na prática na maior parte do tempo, não no que seria ideal.</div>${questions.map((q,i)=>renderQ(r,q,i)).join('')}<button class="btn btn-primary btn-block" onclick="finishResponse('${r.id}')">Finalizar e ver resultado</button></div>`;questions.forEach(q=>{SCALE.forEach(o=>{const el=document.getElementById(`q_${q.id}_${o.v}`);if(el)el.onchange=()=>{r.answers[q.id]=o.v;r.updatedAt=now();save(S);renderForm(r.id)}})})}
-function buildDetailedQuestions(persona){const key=PERSONAS[persona]?persona:'lider_nao_familiar';let arr=[];PILLARS.forEach(p=>{(p.qs[key]||p.qs.lider_nao_familiar).forEach((text,i)=>arr.push({id:p.id+'_'+i,pillar:p.id,pillarName:p.name,p:text}))});return arr}
-function renderQ(r,q,i){const val=r.answers?.[q.id];return `<div class="q-card"><div class="xs muted bold mb8">${q.pillarName?esc(q.pillarName):'Pergunta '+(i+1)}</div><div class="q-text">${i+1}. ${esc(q.p)}</div><div class="scale">${SCALE.map(o=>`<label class="opt ${val===o.v?'selected':''}"><input type="radio" id="q_${q.id}_${o.v}" name="${q.id}" ${val===o.v?'checked':''}><div class="num">${o.v}</div><div class="txt">${esc(o.t)}</div></label>`).join('')}</div></div>`}
-function finishResponse(rid){const r=respById(rid);const total=r.type==='termometro'?THERMO.length:buildDetailedQuestions(r.persona).length;if(Object.keys(r.answers||{}).length<total){toast('Responda todas as perguntas antes de finalizar.');return}r.status='completed';r.completedAt=now();r.reopen=false;save(S);setRoute({result:r.id})}
-function renderResult(rid){const r=respById(rid);if(!r)return setRoute({});const u=currentUser(),owner=S.users.find(x=>x.id===r.userId),g=S.groups.find(x=>x.id===r.groupId);if(!u||(!isAdmin(u)&&u.id!==r.userId&&!canSeeConsolidated(u)))return renderIdentify('resultado',{result:rid});const sc=calcResponse(r),isThermo=r.type==='termometro';const otherAvg=!isThermo?othersAverage(g.id,r.id):null;const ps=!isThermo?calcPillars(r):null;const ops=!isThermo?avgPillars(g.id,r.id):null;const final=S.analysis.find(a=>a.groupId===g.id&&a.status==='released');document.getElementById('app').innerHTML=`<div class="wrap"><div class="result-box soft"><div class="flex between centered wrapgap gap12"><div><div class="badge ${isThermo?'b-blue':'b-purple'}">${isThermo?'Resultado do termômetro':'Resultado da avaliação detalhada'}</div><h2 style="margin:8px 0 4px">${esc(g.name)}</h2><div class="small muted">Respondente: ${esc(owner.name)} · ${esc(PERSONAS[r.persona]||r.persona)} · código <span class="code">${esc(g.code)}</span></div></div><div class="center"><div class="score-big" style="color:${scoreColor(sc)}">${sc.toFixed(1)}</div><div class="small muted">/ 4,0</div></div></div><div class="alert ${sc>=2.5?'info':'warn'} mt16"><b>${resultLabel(sc)}.</b> ${isThermo?thermoText(sc):detailedText(sc,otherAvg)}</div>${!isThermo&&otherAvg!=null?`<div class="grid2 mt16"><div class="mini-card"><div class="xs muted bold">Sua nota</div><div class="stat" style="color:${scoreColor(sc)}">${sc.toFixed(1)}</div></div><div class="mini-card"><div class="xs muted bold">Média dos demais respondentes</div><div class="stat" style="color:${scoreColor(otherAvg)}">${otherAvg.toFixed(1)}</div><div class="xs muted">Exibida apenas com 3+ respondentes concluídos no grupo.</div></div></div><canvas id="radar" class="mt16" style="max-height:360px"></canvas>`:!isThermo?`<div class="alert info mt16">A média dos demais será exibida quando houver pelo menos 3 respondentes concluídos neste grupo. Isso protege a privacidade e melhora a qualidade da comparação.</div>`:''}${final&&canSeeConsolidated(u)?`<div class="card mt16"><div class="badge b-green mb8">Análise final liberada pelo consultor</div><div style="white-space:pre-wrap;line-height:1.65">${esc(final.text)}</div></div>`:''}<div class="grid2 mt16"><div class="card"><div class="card-title">Convidar outra pessoa do grupo</div><div class="card-sub">A leitura fica mais rica quando outros sócios, sucessores e lideranças respondem no mesmo código empresarial.</div><button class="btn btn-primary btn-block" onclick="showInvite('${g.code}')">Gerar link de convite</button></div><div class="card"><div class="card-title">Complete seu cadastro</div><div class="card-sub">Ajude a construir uma base coletiva de saberes. À medida que outros empresários respondam, visões anonimizadas poderão comparar sua posição versus outros grupos empresariais.</div><button class="btn btn-secondary btn-block" onclick="showComplement('${owner.id}')">Completar cadastro para benchmark</button></div></div>${!isThermo?pillarTable(ps,ops):''}<div class="mt16 flex gap8 wrapgap"><button class="btn btn-ghost" onclick="setRoute({})">Início</button>${isAdmin(u)?`<button class="btn btn-secondary" onclick="setRoute({admin:'1',tab:'responses'})">Voltar ao admin</button>`:''}</div></div></div>`;if(!isThermo&&otherAvg!=null)drawRadar(ps,ops)}
-function thermoText(sc){if(sc>=3.5)return'Sua empresa mostra bons sinais de organização. A próxima pergunta é se essa percepção é compartilhada por outras pessoas-chave.';if(sc>=2.5)return'Sua empresa parece estar em estruturação. O próximo passo é entender onde há alinhamento ou divergência entre sócios e lideranças.';if(sc>=1.5)return'Há sinais de informalidade relevante. A avaliação detalhada pode revelar se o gargalo está em papéis, decisão, execução ou continuidade.';return'O resultado sugere forte dependência de pessoas-chave. Vale aprofundar a leitura antes que a gestão vire limite para crescimento.'}
-function detailedText(sc,otherAvg){let base=sc>=2.5?'Sua percepção indica bases importantes de gestão, mas o valor consultivo está em comparar como outras pessoas-chave enxergam os mesmos temas.':'Sua percepção aponta oportunidades relevantes de evolução. O próximo passo é entender causas, exemplos concretos e diferenças de percepção.';if(otherAvg!=null){const diff=Math.abs(sc-otherAvg);if(diff>=.7)base+=' Há uma diferença relevante entre sua nota e a média dos demais, o que pode indicar desalinhamento de percepção ou comunicação.';else base+=' Sua nota está próxima da média dos demais, sugerindo maior alinhamento geral de percepção.'}return base}
-function pillarTable(ps,ops){if(!ps)return'';return `<div class="card mt16"><div class="card-title">Leitura por pilar</div><div class="card-sub">Para sócios, a plataforma mostra apenas sua visão versus média dos demais. Não há quebra por persona nem respostas individuais de terceiros.</div><div class="table-wrap"><table><thead><tr><th>Pilar</th><th>Sua nota</th><th>Média dos demais</th><th></th></tr></thead><tbody>${PILLARS.map(p=>{const v=ps[p.id],o=ops?ops[p.id]:null;return `<tr><td><b>${esc(p.name)}</b><div class="xs muted">${esc(p.desc)}</div></td><td><b style="color:${scoreColor(v)}">${v?.toFixed(1)||'—'}</b></td><td>${o!=null?`<b style="color:${scoreColor(o)}">${o.toFixed(1)}</b>`:'—'}</td><td><div class="bar"><span style="width:${(v/4)*100}%;background:${scoreColor(v)}"></span></div></td></tr>`}).join('')}</tbody></table></div></div>`}
-function drawRadar(ps,ops){const ctx=document.getElementById('radar');if(!ctx)return;new Chart(ctx,{type:'radar',data:{labels:PILLARS.map(p=>p.name),datasets:[{label:'Sua nota',data:PILLARS.map(p=>ps[p.id]||0),borderColor:'#2557B7',backgroundColor:'rgba(37,87,183,.15)',pointBackgroundColor:'#2557B7'},{label:'Média dos demais',data:PILLARS.map(p=>ops?.[p.id]||0),borderColor:'#10B981',backgroundColor:'rgba(16,185,129,.08)',pointBackgroundColor:'#10B981',borderDash:[5,3]}]},options:{scales:{r:{min:0,max:4,ticks:{stepSize:1}}},plugins:{legend:{position:'bottom'}}}})}
-function showInvite(c){const base=location.origin+location.pathname;document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="card-title">Convite para outro respondente</div><div class="card-sub">Compartilhe o link mantendo o mesmo código empresarial <span class="code">${esc(c)}</span>.</div>${Object.entries(PERSONAS).filter(([k])=>!['consultor','outro'].includes(k)).map(([k,v])=>{const url=`${base}?flow=detalhada&codigo=${c}&persona=${k}`;return `<div class="mini-card mb8"><div class="flex between centered gap8"><div><b>${v}</b><div class="xs muted">${esc(url)}</div></div><button class="btn btn-secondary btn-sm" onclick="copy('${esc(url)}')">Copiar</button></div></div>`}).join('')}<button class="btn btn-ghost btn-block mt12" onclick="closeModal()">Fechar</button></div></div>`}
-function showComplement(uid){const u=S.users.find(x=>x.id===uid)||currentUser();document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="card-title">Completar cadastro para benchmarks anonimizados</div><div class="card-sub">Esses dados ajudam a construir visões coletivas por segmento, porte e contexto, sem expor respostas individuais.</div><div class="grid2"><div class="field"><label>Segmento</label><select id="c-segment"><option></option>${SEGMENTS.map(x=>`<option ${u.segment===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Tamanho da empresa</label><select id="c-size"><option></option>${COMPANY_SIZES.map(x=>`<option ${u.companySize===x?'selected':''}>${x}</option>`).join('')}</select></div></div><div class="grid2"><div class="field"><label>Faixa de faturamento</label><select id="c-revenue"><option></option>${REVENUES.map(x=>`<option ${u.revenue===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Cidade/UF</label><input id="c-city" value="${esc(u.city||'')}"></div></div><div class="grid2"><div class="field"><label>Empresa familiar?</label><select id="c-family"><option></option><option ${u.familyBusiness==='Sim'?'selected':''}>Sim</option><option ${u.familyBusiness==='Não'?'selected':''}>Não</option></select></div><div class="field"><label>Geração atual</label><select id="c-generation"><option></option><option ${u.generation==='1ª geração'?'selected':''}>1ª geração</option><option ${u.generation==='2ª geração'?'selected':''}>2ª geração</option><option ${u.generation==='3ª geração ou mais'?'selected':''}>3ª geração ou mais</option></select></div></div><button class="btn btn-primary btn-block" onclick="saveComplement('${u.id}')">Salvar complemento</button><button class="btn btn-ghost btn-block mt8" onclick="closeModal()">Agora não</button></div></div>`}
-function saveComplement(uid){const u=S.users.find(x=>x.id===uid);if(!u)return;Object.assign(u,{segment:val('c-segment'),companySize:val('c-size'),revenue:val('c-revenue'),city:val('c-city'),familyBusiness:val('c-family'),generation:val('c-generation'),benchmarkCompletedAt:now()});save(S);closeModal();toast('Cadastro complementar salvo.')}function val(id){return document.getElementById(id)?.value.trim()||''}
-function closeModal(){document.getElementById('modal-root').innerHTML=''}function copy(x){navigator.clipboard?.writeText(x);toast('Link copiado')}
+function seed(){if(S.seeded)return;S.users.push({id:'u-admin',name:'Consultor GoBraz',email:'consultor@gobraz.com.br',role:'admin',persona:'socio',createdAt:now()});S.seeded=true;save(S);}
+function now(){return new Date().toISOString();}
+function uid(p='id'){return p+'_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);}
+function newCode(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let r;do{r='';for(let i=0;i<6;i++)r+=c[Math.floor(Math.random()*c.length)];}while(S.groups.some(g=>g.code===r));return r;}
+function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function q(){return Object.fromEntries(new URLSearchParams(location.search).entries());}
+function setRoute(params){const url=new URL(location.href);url.search='';Object.entries(params).forEach(([k,v])=>{if(v!==undefined&&v!==null&&v!=='')url.searchParams.set(k,v);});history.pushState(null,'',url);render();}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+function closeModal(){document.getElementById('modal-root').innerHTML='';}
+function copy(x){navigator.clipboard?.writeText(x);toast('Link copiado');}
+function val(id){return document.getElementById(id)?.value.trim()||'';}
 
-function renderInterview(p){adminTabState='interviews';setRoute({admin:'1',tab:'interviews'});}
+/* --------------------------- Helpers de domínio -------------------------- */
+function currentUser(){return S.current?S.users.find(u=>u.id===S.current):null;}
+function isAdmin(u){return u?.role==='admin'||u?.role==='consultor';}
+function isSocio(u){return u?.role==='socio'||u?.persona==='socio';}
+function groupByCode(c){return S.groups.find(g=>g.code===String(c||'').toUpperCase());}
+function respById(id){return S.responses.find(r=>r.id===id);}
+function userByEmail(e){return S.users.find(u=>u.email?.toLowerCase()===String(e||'').toLowerCase());}
+function scaleOf(type){return SCALES[type]||SCALES.A;}
+// pratica questions flattened for a persona
+function practiceQuestions(persona){const k=PERSONAS[persona]?persona:'lider_nao_familiar';const arr=[];PILLARS.forEach(p=>p.qs.forEach((qq,i)=>arr.push({id:p.id+'_'+i,pillar:p.id,pillarName:p.name,scale:qq.scale,p:qq.t[k]||qq.t.lider_nao_familiar})));return arr;}
+function questionsFor(r){if(r.type==='termometro')return THERMO;if(r.type==='cluster')return CLUSTER_Q;return practiceQuestions(r.persona);}
+function avg(a){return a.length?+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2):0;}
+function calcScore(r){const v=Object.values(r.answers||{}).filter(x=>typeof x==='number');return avg(v);} // escala 1..5
+function calcPillars(r){const out={};PILLARS.forEach(p=>{const vals=[];p.qs.forEach((_,i)=>{const x=r.answers?.[p.id+'_'+i];if(typeof x==='number')vals.push(x);});out[p.id]=vals.length?avg(vals):null;});return out;}
+function completedPratica(gid){return S.responses.filter(r=>r.groupId===gid&&r.type==='pratica'&&r.status==='completed');}
+// [PERMISSÃO] média dos demais só existe com 3+ respondentes concluídos no grupo
+function othersAverage(gid,selfId){const all=completedPratica(gid);if(all.length<3)return null;const o=all.filter(r=>r.id!==selfId);return o.length?avg(o.map(calcScore)):null;}
+function othersPillars(gid,selfId){const all=completedPratica(gid);if(all.length<3)return null;const o=all.filter(r=>r.id!==selfId);if(!o.length)return null;const out={};PILLARS.forEach(p=>{const vals=[];o.forEach(r=>{const x=calcPillars(r)[p.id];if(x!=null)vals.push(x);});out[p.id]=vals.length?avg(vals):null;});return out;}
+function releasedAnalysis(gid){return S.analysis.find(a=>a.groupId===gid&&a.status==='released');}
+function scoreColor(v){return v>=4?'#1f9d55':v>=3?'#1160b8':v>=2?'#d9822b':'#c0392b';}
+function getOrCreateGroup(name){let g=S.groups.find(x=>x.name?.toLowerCase()===name.toLowerCase());if(!g){g={id:uid('g'),code:newCode(),name,status:'active',createdAt:now()};S.groups.push(g);save(S);}return g;}
+function baseUrl(){return location.origin+location.pathname;}
+function inviteLink(flow,code,persona){let u=`${baseUrl()}?flow=${flow}`;if(code)u+=`&codigo=${code}`;if(persona)u+=`&persona=${persona}`;return u;}
 
-function renderClientHome(){const u=currentUser();const mine=S.responses.filter(r=>r.userId===u.id);document.getElementById('app').innerHTML=`<div class="wrap"><h2>Minhas respostas</h2><div class="grid2">${mine.map(r=>{const g=S.groups.find(x=>x.id===r.groupId);return `<div class="card"><div class="badge ${r.type==='termometro'?'b-blue':'b-purple'}">${r.type}</div><div class="card-title mt8">${esc(g?.name)}</div><div class="card-sub">${esc(PERSONAS[r.persona]||r.persona)} · ${r.status==='completed'?'Concluído':'Em andamento'}</div><button class="btn btn-secondary btn-block" onclick="${r.status==='completed'?`setRoute({result:'${r.id}'})`:`renderForm('${r.id}')`}">${r.status==='completed'?'Ver resultado':'Continuar'}</button></div>`}).join('')||'<div class="card">Nenhuma resposta encontrada.</div>'}</div></div>`}
-let adminTabState='overview';
-let responseFilters={group:'',persona:'',segment:'',size:''};
-function renderAdmin(){const p=qs();adminTabState=p.tab||adminTabState;const tabs=['overview','groups','responses','interviews','analysis','data'];document.getElementById('app').innerHTML=`<div class="wrap"><div class="flex between centered wrapgap gap12"><div><h2 style="margin-bottom:4px">Painel Admin</h2><div class="small muted">Gestão dos grupos, respondentes, aprofundamentos e base consolidada.</div></div><div class="flex gap8 wrapgap"><button class="btn btn-secondary btn-sm" onclick="showCreateGroup()">+ Grupo</button><button class="btn btn-ghost btn-sm" onclick="exportJSON()">Exportar JSON</button><button class="btn btn-ghost btn-sm" onclick="importJSONModal()">Importar JSON</button></div></div><div class="tabs">${tabs.map(t=>`<button class="tab ${adminTabState===t?'active':''}" onclick="adminTabState='${t}';setRoute({admin:'1',tab:'${t}'})">${tabName(t)}</button>`).join('')}</div><div id="admin-body"></div></div>`;renderAdminBody()}
-function tabName(t){return{overview:'Visão geral',groups:'Grupos',responses:'Respondentes e respostas',interviews:'Aprofundamentos',analysis:'Análise final',data:'Base consolidada'}[t]}
-function renderAdminBody(){const el=document.getElementById('admin-body');if(adminTabState==='overview')return adminOverview(el);if(adminTabState==='groups')return adminGroups(el);if(adminTabState==='responses')return adminResponses(el);if(adminTabState==='interviews')return adminInterviews(el);if(adminTabState==='analysis')return adminAnalysis(el);if(adminTabState==='data')return adminData(el)}
-function adminOverview(el){const leads=S.responses.filter(r=>r.type==='termometro').length, det=completedDetailed(null).length;el.innerHTML=`<div class="grid4"><div class="card"><div class="stat">${S.groups.length}</div><div class="small muted">Grupos</div></div><div class="card"><div class="stat">${S.users.filter(u=>u.role!=='admin').length}</div><div class="small muted">Respondentes</div></div><div class="card"><div class="stat">${leads}</div><div class="small muted">Termômetros</div></div><div class="card"><div class="stat">${S.interviews.length}</div><div class="small muted">Aprofundamentos</div></div></div><div class="alert info mt16"><b>Funil consultivo:</b> termômetro → avaliação detalhada → convite a novos respondentes → aprofundamento → análise final liberada aos sócios.</div><div class="card mt16"><div class="card-title">Grupos com maior potencial de aprofundamento</div>${S.groups.map(g=>{const rs=completedDetailed(g.id);const avg=rs.length?+(rs.map(calcResponse).reduce((a,b)=>a+b,0)/rs.length).toFixed(2):null;return `<div class="mini-card mb8"><div class="flex between centered"><div><b>${esc(g.name)}</b><div class="xs muted">${rs.length} avaliação(ões) detalhada(s) concluída(s) · código <span class="code">${esc(g.code)}</span></div></div><div class="bold" style="color:${avg!=null?scoreColor(avg):'#6B7280'}">${avg!=null?avg.toFixed(1):'—'}</div></div></div>`}).join('')||'<div class="muted">Nenhum grupo.</div>'}</div>`}
-function completedDetailed(groupId){return S.responses.filter(r=>(!groupId||r.groupId===groupId)&&r.type==='detalhada'&&r.status==='completed')}
-function adminGroups(el){el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Grupo</th><th>Código</th><th>Status</th><th>Respondentes</th><th>Links</th><th>Ações</th></tr></thead><tbody>${S.groups.map(g=>{const rs=S.responses.filter(r=>r.groupId===g.id);return `<tr><td><b>${esc(g.name)}</b><div class="xs muted">${esc(g.segment||'')}</div></td><td><span class="code">${esc(g.code)}</span></td><td><span class="badge ${g.status==='active'?'b-green':'b-amber'}">${esc(g.status)}</span></td><td>${rs.length}</td><td><button class="btn btn-secondary btn-sm" onclick="showInvite('${g.code}')">Convites</button></td><td><button class="btn btn-ghost btn-sm" onclick="editGroup('${g.id}')">Editar</button></td></tr>`}).join('')}</tbody></table></div>`}
-function adminResponses(el){const filters=`<div class="grid4 mb12"><select id="f-group" onchange="responseFilters.group=this.value;adminResponses(document.getElementById('admin-body'))"><option value="">Todos os grupos</option>${S.groups.map(g=>`<option value="${g.id}" ${responseFilters.group===g.id?'selected':''}>${esc(g.name)}</option>`).join('')}</select><select id="f-persona" onchange="responseFilters.persona=this.value;adminResponses(document.getElementById('admin-body'))"><option value="">Todas personas</option>${Object.entries(PERSONAS).map(([k,v])=>`<option value="${k}" ${responseFilters.persona===k?'selected':''}>${v}</option>`).join('')}</select><select id="f-segment" onchange="responseFilters.segment=this.value;adminResponses(document.getElementById('admin-body'))"><option value="">Todos segmentos</option>${SEGMENTS.map(x=>`<option ${responseFilters.segment===x?'selected':''}>${x}</option>`).join('')}</select><select id="f-size" onchange="responseFilters.size=this.value;adminResponses(document.getElementById('admin-body'))"><option value="">Todos portes</option>${COMPANY_SIZES.map(x=>`<option ${responseFilters.size===x?'selected':''}>${x}</option>`).join('')}</select></div>`;const fg=responseFilters.group,fp=responseFilters.persona,fs=responseFilters.segment,fz=responseFilters.size;let rows=S.responses.filter(r=>!fg||r.groupId===fg).filter(r=>!fp||r.persona===fp).filter(r=>{const u=S.users.find(x=>x.id===r.userId)||{};return(!fs||u.segment===fs)&&(!fz||u.companySize===fz)});el.innerHTML=filters+`<div class="table-wrap"><table><thead><tr><th>Respondente</th><th>Grupo</th><th>Tipo</th><th>Persona</th><th>Status</th><th>Nota</th><th>Ações</th></tr></thead><tbody>${rows.map(r=>{const u=S.users.find(x=>x.id===r.userId)||{},g=S.groups.find(x=>x.id===r.groupId)||{};return `<tr><td><b>${esc(u.name)}</b><div class="xs muted">${esc(u.email)} · ${esc(u.position||'')}</div></td><td>${esc(g.name)}<div class="xs code">${esc(g.code)}</div></td><td>${r.type}</td><td>${esc(PERSONAS[r.persona]||r.persona)}</td><td><span class="badge ${r.status==='completed'?'b-green':'b-amber'}">${r.status}</span></td><td>${r.status==='completed'?calcResponse(r).toFixed(1):'—'}</td><td class="flex gap8 wrapgap"><button class="btn btn-secondary btn-sm" onclick="setRoute({result:'${r.id}'})">Ver</button><button class="btn btn-ghost btn-sm" onclick="editUser('${u.id}')">Cadastro</button><button class="btn btn-ghost btn-sm" onclick="editResponse('${r.id}')">Editar resposta</button><button class="btn btn-ghost btn-sm" onclick="reopenResponse('${r.id}')">Reabrir</button></td></tr>`}).join('')}</tbody></table></div>`}
-function adminInterviews(el){el.innerHTML=`<div class="alert info">O aprofundamento é preenchido pelo consultor/admin e fica vinculado ao mesmo código empresarial, preservando a leitura consolidada do grupo.</div><button class="btn btn-primary btn-sm mb12" onclick="newInterviewModal()">+ Registrar aprofundamento</button><div class="table-wrap"><table><thead><tr><th>Grupo</th><th>Respondente</th><th>Pilares</th><th>Criticidade</th><th>Data</th><th>Ações</th></tr></thead><tbody>${S.interviews.map(i=>{const g=S.groups.find(x=>x.id===i.groupId)||{},u=S.users.find(x=>x.id===i.userId)||{};return `<tr><td>${esc(g.name)}<div class="xs code">${esc(g.code)}</div></td><td>${esc(u.name)}<div class="xs muted">${esc(PERSONAS[i.persona]||i.persona)}</div></td><td>${esc((i.pillars||[]).join(', '))}</td><td><span class="badge ${i.criticality==='Alta'?'b-red':i.criticality==='Média'?'b-amber':'b-green'}">${esc(i.criticality)}</span></td><td>${new Date(i.createdAt).toLocaleDateString('pt-BR')}</td><td><button class="btn btn-secondary btn-sm" onclick="viewInterview('${i.id}')">Ver</button></td></tr>`}).join('')}</tbody></table></div>`}
-function adminAnalysis(el){el.innerHTML=`<div class="grid2"><div class="card"><div class="card-title">Nova análise final</div><div class="field"><label>Grupo</label><select id="a-group">${S.groups.map(g=>`<option value="${g.id}">${esc(g.name)} (${g.code})</option>`).join('')}</select></div><div class="field"><label>Análise final do consultor</label><textarea id="a-text" placeholder="Registre a leitura consultiva final, hipóteses, tensões e próximos passos sugeridos..."></textarea></div><label style="display:flex;gap:8px;align-items:center"><input id="a-release" type="checkbox" style="width:auto"> Liberar para Perfil Sócio</label><button class="btn btn-primary btn-block mt12" onclick="saveAnalysis()">Salvar análise</button></div><div class="card"><div class="card-title">Análises salvas</div>${S.analysis.map(a=>{const g=S.groups.find(x=>x.id===a.groupId)||{};return `<div class="mini-card mb8"><div class="flex between"><b>${esc(g.name)}</b><span class="badge ${a.status==='released'?'b-green':'b-gray'}">${a.status}</span></div><div class="xs muted">${new Date(a.createdAt).toLocaleString('pt-BR')}</div><div class="small mt8" style="white-space:pre-wrap">${esc(a.text.slice(0,240))}${a.text.length>240?'...':''}</div></div>`}).join('')||'<div class="muted">Nenhuma análise.</div>'}</div></div>`}
-function adminData(el){const users=S.users.filter(u=>u.role!=='admin');el.innerHTML=`<div class="alert info"><b>Base consolidada:</b> filtros por segmento, porte, persona e contexto já estão previstos. No protótipo, use cadastro complementar para alimentar benchmarks futuros.</div><div class="table-wrap"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Persona</th><th>Segmento</th><th>Porte</th><th>Faturamento</th><th>Cidade/UF</th></tr></thead><tbody>${users.map(u=>`<tr><td>${esc(u.name)}<div class="xs muted">${esc(u.email)}</div></td><td>${esc(u.company)}</td><td>${esc(PERSONAS[u.persona]||u.persona)}</td><td>${esc(u.segment||'—')}</td><td>${esc(u.companySize||'—')}</td><td>${esc(u.revenue||'—')}</td><td>${esc(u.city||'—')}</td></tr>`).join('')}</tbody></table></div>`}
-function showCreateGroup(){document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="card-title">Criar grupo empresarial</div><div class="field"><label>Nome da empresa/grupo</label><input id="g-name"></div><div class="grid2"><div class="field"><label>Segmento</label><select id="g-segment"><option></option>${SEGMENTS.map(x=>`<option>${x}</option>`).join('')}</select></div><div class="field"><label>Porte</label><select id="g-size"><option></option>${COMPANY_SIZES.map(x=>`<option>${x}</option>`).join('')}</select></div></div><button class="btn btn-primary btn-block" onclick="createGroupAdmin()">Criar</button></div></div>`}
-function createGroupAdmin(){const name=val('g-name');if(!name)return toast('Informe o nome.');const g={id:id('g'),code:code(),name,status:'active',segment:val('g-segment'),companySize:val('g-size'),createdAt:now()};S.groups.push(g);save(S);closeModal();toast('Grupo criado: '+g.code);renderAdmin()}
-function editGroup(gid){const g=S.groups.find(x=>x.id===gid);if(!g)return;document.getElementById('modal-root').innerHTML=`<div class="modal-bg"><div class="modal"><div class="card-title">Editar grupo</div><div class="field"><label>Nome</label><input id="eg-name" value="${esc(g.name)}"></div><div class="grid2"><div class="field"><label>Segmento</label><select id="eg-segment"><option></option>${SEGMENTS.map(x=>`<option ${g.segment===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Porte</label><select id="eg-size"><option></option>${COMPANY_SIZES.map(x=>`<option ${g.companySize===x?'selected':''}>${x}</option>`).join('')}</select></div></div><button class="btn btn-primary btn-block" onclick="saveGroup('${gid}')">Salvar</button><button class="btn btn-ghost btn-block mt8" onclick="closeModal()">Cancelar</button></div></div>`}
-function saveGroup(gid){const g=S.groups.find(x=>x.id===gid);Object.assign(g,{name:val('eg-name'),segment:val('eg-segment'),companySize:val('eg-size'),updatedAt:now()});save(S);closeModal();renderAdminBody()}
-function editUser(uid){showComplement(uid)}
-function editResponse(rid){const r=respById(rid);const qs=r.type==='termometro'?THERMO:buildDetailedQuestions(r.persona);document.getElementById('modal-root').innerHTML=`<div class="modal-bg"><div class="modal"><div class="card-title">Editar resposta</div><div class="alert warn">Edição administrativa. Em produção, recomenda-se registrar trilha de auditoria.</div>${qs.map(q=>`<div class="field"><label>${esc(q.p)}</label><select id="er-${q.id}">${SCALE.map(o=>`<option value="${o.v}" ${r.answers[q.id]===o.v?'selected':''}>${o.v} — ${esc(o.t)}</option>`).join('')}</select></div>`).join('')}<button class="btn btn-primary btn-block" onclick="saveEditedResponse('${rid}')">Salvar edição</button><button class="btn btn-ghost btn-block mt8" onclick="closeModal()">Cancelar</button></div></div>`}
-function saveEditedResponse(rid){const r=respById(rid);const qs=r.type==='termometro'?THERMO:buildDetailedQuestions(r.persona);qs.forEach(q=>r.answers[q.id]=Number(val('er-'+q.id)));S.audit.push({id:id('audit'),action:'edit_response',rid,userId:S.current,at:now()});save(S);closeModal();renderAdminBody()}
-function reopenResponse(rid){const r=respById(rid);r.status='in_progress';r.reopen=true;S.audit.push({id:id('audit'),action:'reopen_response',rid,userId:S.current,at:now()});save(S);toast('Formulário reaberto. O respondente poderá editar ao acessar novamente.');renderAdminBody()}
-function newInterviewModal(){document.getElementById('modal-root').innerHTML=`<div class="modal-bg"><div class="modal"><div class="card-title">Registrar aprofundamento</div><div class="field"><label>Grupo</label><select id="i-group" onchange="updateInterviewUsers()">${S.groups.map(g=>`<option value="${g.id}">${esc(g.name)} (${g.code})</option>`).join('')}</select></div><div class="field"><label>Respondente</label><select id="i-user"></select></div><div class="field"><label>Pilares aprofundados</label><input id="i-pillars" placeholder="Ex.: Decisão, Papéis, Sucessão"></div><div class="field"><label>Criticidade</label><select id="i-criticality"><option>Baixa</option><option selected>Média</option><option>Alta</option></select></div><div class="field"><label>Dores e exemplos relatados</label><textarea id="i-pain"></textarea></div><div class="field"><label>Hipóteses do consultor</label><textarea id="i-hyp"></textarea></div><div class="field"><label>Recomendações preliminares / próximo passo</label><textarea id="i-next"></textarea></div><button class="btn btn-primary btn-block" onclick="saveInterview()">Salvar aprofundamento</button><button class="btn btn-ghost btn-block mt8" onclick="closeModal()">Cancelar</button></div></div>`;updateInterviewUsers()}
-function updateInterviewUsers(){const gid=val('i-group');const uids=[...new Set(S.responses.filter(r=>r.groupId===gid).map(r=>r.userId))];const sel=document.getElementById('i-user');if(sel)sel.innerHTML=uids.map(uid=>{const u=S.users.find(x=>x.id===uid)||{};return `<option value="${uid}">${esc(u.name)} — ${esc(PERSONAS[u.persona]||u.persona)}</option>`}).join('')}
-function saveInterview(){const uid=val('i-user'),u=S.users.find(x=>x.id===uid)||{};S.interviews.push({id:id('i'),groupId:val('i-group'),userId:uid,persona:u.persona,pillars:val('i-pillars').split(',').map(x=>x.trim()).filter(Boolean),criticality:val('i-criticality'),pain:val('i-pain'),hypotheses:val('i-hyp'),next:val('i-next'),consultorId:S.current,createdAt:now()});save(S);closeModal();renderAdminBody()}
-function viewInterview(iid){const i=S.interviews.find(x=>x.id===iid);if(!i)return;const g=S.groups.find(x=>x.id===i.groupId)||{},u=S.users.find(x=>x.id===i.userId)||{};document.getElementById('modal-root').innerHTML=`<div class="modal-bg"><div class="modal"><div class="card-title">Aprofundamento · ${esc(g.name)}</div><div class="card-sub">${esc(u.name)} · ${esc(PERSONAS[i.persona]||i.persona)} · ${new Date(i.createdAt).toLocaleString('pt-BR')}</div><p><b>Pilares:</b> ${esc((i.pillars||[]).join(', '))}</p><p><b>Criticidade:</b> ${esc(i.criticality)}</p><hr class="hr"><p><b>Dores e exemplos:</b></p><div style="white-space:pre-wrap">${esc(i.pain)}</div><p><b>Hipóteses:</b></p><div style="white-space:pre-wrap">${esc(i.hypotheses)}</div><p><b>Próximo passo:</b></p><div style="white-space:pre-wrap">${esc(i.next)}</div><button class="btn btn-ghost btn-block mt12" onclick="closeModal()">Fechar</button></div></div>`}
-function saveAnalysis(){S.analysis.push({id:id('a'),groupId:val('a-group'),text:val('a-text'),status:document.getElementById('a-release').checked?'released':'draft',createdAt:now(),consultorId:S.current});save(S);renderAdminBody();toast('Análise salva')}
-function exportJSON(){const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gestao_de_dono_assessment_v3_base.json';a.click()}
-function importJSONModal(){document.getElementById('modal-root').innerHTML=`<div class="modal-bg"><div class="modal"><div class="card-title">Importar base JSON</div><div class="alert warn">A importação substituirá a base local deste navegador.</div><input type="file" id="jsonfile" accept="application/json"><button class="btn btn-primary btn-block mt12" onclick="doImportJSON()">Importar</button><button class="btn btn-ghost btn-block mt8" onclick="closeModal()">Cancelar</button></div></div>`}
-function doImportJSON(){const f=document.getElementById('jsonfile').files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const obj=JSON.parse(r.result);localStorage.setItem(STORE_KEY,JSON.stringify(obj));closeModal();toast('Base importada');setTimeout(()=>location.reload(),600)}catch(e){toast('JSON inválido')}};r.readAsText(f)}
-window.onpopstate=render;render();
+/* ------------------------------- Top-right ------------------------------- */
+function renderTopRight(){const u=currentUser();const el=document.getElementById('top-right');
+ if(u&&isAdmin(u)){el.innerHTML=`<div class="userchip"><span class="chip">${esc(u.name)}</span><button class="btn btn-ghost btn-sm" onclick="logout()">Sair</button></div>`;return;}
+ if(u){el.innerHTML=`<div class="userchip"><span class="chip">${esc(u.name)}</span><button class="btn btn-ghost btn-sm" onclick="logout()">Sair</button></div>`;return;}
+ // Home institucional: acesso consultor discreto no canto superior direito
+ el.innerHTML=`<a class="consultor-link" href="#" onclick="setRoute({view:'consultor'});return false;">Acesso consultor</a>`;
+}
+function logout(){S.current=null;save(S);setRoute({});}
+
+/* -------------------------------- Router --------------------------------- */
+function render(){S=load();seed();renderTopRight();const p=q(),u=currentUser();
+ if(p.dev)return renderDevLauncher();               // Dev Launcher só com ?dev=1
+ if(p.view==='consultor'||p.admin){return u&&isAdmin(u)?renderAdmin():renderConsultorLogin();}
+ if(p.result){return renderResult(p.result);}
+ if(p.rid){return renderForm(p.rid);}
+ if(p.flow==='termometro')return renderNarrative('termometro',p);
+ if(p.flow==='cluster')return renderNarrative('cluster',p);
+ if(p.flow==='pratica'||p.flow==='detalhada')return renderNarrative('pratica',p);
+ return renderHome();
+}
+
+/* --------------------------- Home institucional -------------------------- */
+function renderHome(){document.getElementById('app').innerHTML=`
+ <div class="hero">
+   <span class="eyebrow">GoBraz · Comunidade de Empresários</span>
+   <h1>Uma leitura estruturada da gestão da sua empresa</h1>
+   <p class="lead">Compreenda como sócios, sucessores e lideranças percebem a gestão, a tomada de decisão, a execução e a continuidade da empresa.</p>
+ </div>
+ <div class="card soft center" style="max-width:620px;margin:22px auto 0">
+   <p class="muted" style="margin:0 0 6px">Se você recebeu um convite, acesse pela leitura enviada no seu link.</p>
+   <p style="margin:0;font-size:15px"><b>“As respostas estruturadas mostram padrões. A conversa individual revela contexto.”</b></p>
+ </div>`;
+}
+
+/* ------------------------- Dev Launcher (?dev=1) ------------------------- */
+// Tela de simulação. NÃO aparece na home pública (só com ?dev=1). Cria dados demo.
+const DEMO_CODE='DEMO01';
+function demoGroup(){let g=groupByCode(DEMO_CODE);if(!g){g={id:uid('g'),code:DEMO_CODE,name:'GoBraz Demo S.A.',status:'active',segment:'Serviços',createdAt:now(),updatedAt:now()};S.groups.push(g);save(S);Sync.push('group',g);}return g;}
+function createDemoData(){
+ const g=demoGroup();
+ const people=[['Ana Sócia','ana.demo@gobraz.com.br','socio'],['Bruno Sucessor','bruno.demo@gobraz.com.br','sucessor'],['Carla Líder','carla.demo@gobraz.com.br','lider_familiar'],['Diego Gestor','diego.demo@gobraz.com.br','lider_nao_familiar']];
+ people.forEach(([name,email,persona],idx)=>{
+  let u=userByEmail(email);if(!u){u={id:uid('u'),createdAt:now()};S.users.push(u);}
+  Object.assign(u,{name,email,company:g.name,position:'—',persona,role:persona==='socio'?'socio':'respondente',consent:true,updatedAt:now()});
+  const r={id:uid('r'),type:'pratica',userId:u.id,groupId:g.id,persona,status:'completed',answers:{},score:0,createdAt:now(),completedAt:now(),updatedAt:now()};
+  practiceQuestions(persona).forEach((qq,i)=>r.answers[qq.id]=((i+idx)%5)+1);
+  r.score=calcScore(r);S.responses.push(r);
+  Sync.push('user',u);Sync.push('response',r);
+ });
+ save(S);toast('Massa demo criada (código '+DEMO_CODE+', 4 respostas)');render();
+}
+function clearDemoData(){const g=groupByCode(DEMO_CODE);if(!g){toast('Nada para limpar');return;}
+ S.responses=S.responses.filter(r=>r.groupId!==g.id);S.interviews=S.interviews.filter(i=>i.groupId!==g.id);S.analysis=S.analysis.filter(a=>a.groupId!==g.id);
+ const keepUsers=new Set(S.responses.map(r=>r.userId));S.users=S.users.filter(u=>u.role==='admin'||!u.email?.endsWith('.demo@gobraz.com.br')||keepUsers.has(u.id));
+ S.groups=S.groups.filter(x=>x.id!==g.id);save(S);toast('Massa demo removida');render();}
+function renderDevLauncher(){const g=groupByCode(DEMO_CODE);const c=g?g.code:DEMO_CODE;const B=baseUrl();
+ const link=(label,href)=>`<a class="btn btn-outline block mb8" href="${href}">${label}</a>`;
+ document.getElementById('app').innerHTML=`
+ <div class="narrow" style="margin:0 auto">
+   <div class="notice warn mb16"><b>Modo simulação (dev).</b> Esta tela só aparece com <code>?dev=1</code> e não faz parte da experiência pública.</div>
+   <div class="card">
+     <h2>Simular fluxos</h2>
+     <p class="sub">Provider ativo: <b>${STORAGE_CONFIG.provider==='sheets'?'Google Sheets':'Local'}</b>. ${g?`Grupo demo: <span class="code-badge">${esc(c)}</span>`:'Crie a massa demo para links com grupo.'}</p>
+     <div class="grid2">
+       <div>
+         <h3 class="small">Termômetro</h3>
+         ${link('Termômetro sem código',B+'?flow=termometro')}
+         ${link('Termômetro — grupo demo',B+'?flow=termometro&codigo='+c)}
+         <h3 class="small mt12">Cluster</h3>
+         ${link('Cluster — demo (sócio)',B+'?flow=cluster&codigo='+c+'&persona=socio')}
+       </div>
+       <div>
+         <h3 class="small">Avaliação da prática</h3>
+         ${link('Prática — Sócio',B+'?flow=pratica&codigo='+c+'&persona=socio')}
+         ${link('Prática — Sucessor',B+'?flow=pratica&codigo='+c+'&persona=sucessor')}
+         ${link('Prática — Líder familiar',B+'?flow=pratica&codigo='+c+'&persona=lider_familiar')}
+         ${link('Prática — Líder não familiar',B+'?flow=pratica&codigo='+c+'&persona=lider_nao_familiar')}
+       </div>
+     </div>
+     <div class="divider"></div>
+     <div class="flex gap8 wrapgap">
+       <a class="btn btn-primary" href="${B}?view=consultor">Acesso consultor</a>
+       <a class="btn btn-ghost" href="${B}">Home pública</a>
+     </div>
+   </div>
+   <div class="card">
+     <h3>Massa de dados demo</h3>
+     <p class="sub">Cria um grupo <span class="code-badge">${esc(DEMO_CODE)}</span> com 4 respostas concluídas (uma por persona) — suficiente para acionar a regra de “média dos demais (3+)”.</p>
+     <div class="flex gap8 wrapgap">
+       <button class="btn btn-outline" onclick="createDemoData()">Criar massa demo local</button>
+       <button class="btn btn-danger" onclick="clearDemoData()">Limpar massa demo</button>
+       ${Sync.isSheets()?`<button class="btn btn-outline" onclick="demoGroup();toast('Grupo demo enviado ao Sheets')">Criar grupo demo no Sheets</button>`:''}
+     </div>
+   </div>
+ </div>`;
+}
+
+/* --------------------------- Login do consultor -------------------------- */
+function renderConsultorLogin(){document.getElementById('app').innerHTML=`
+ <div class="card soft" style="max-width:440px;margin:30px auto 0">
+   <h2>Acesso consultor</h2>
+   <p class="sub">Área restrita da GoBraz.</p>
+   <div id="err"></div>
+   <label class="field"><span class="lab">E-mail</span><input id="c-email" value="consultor@gobraz.com.br"></label>
+   <label class="field"><span class="lab">Senha</span><input id="c-pass" type="password" value="gobraz123" onkeydown="if(event.key==='Enter')consultorLogin()"></label>
+   <button class="btn btn-primary block" onclick="consultorLogin()">Entrar</button>
+   <button class="btn btn-ghost block mt8" onclick="setRoute({})">Voltar</button>
+ </div>`;
+}
+function consultorLogin(){const e=val('c-email').toLowerCase(),p=val('c-pass');
+ if(e==='consultor@gobraz.com.br'&&p==='gobraz123'){S.current='u-admin';save(S);setRoute({view:'consultor'});return;}
+ document.getElementById('err').innerHTML='<div class="notice warn mb12">Credenciais inválidas.</div>';
+}
+
+/* ----------------------- Narrativa antes do formulário ------------------- */
+function renderNarrative(flow,p){
+ const code=(p.codigo||'').toUpperCase();const group=code?groupByCode(code):null;
+ const meta={
+   termometro:{tag:'Leitura inicial',title:'Leitura inicial da gestão',time:'3 minutos',
+     text:'Em poucos minutos, você terá uma primeira leitura sobre sinais de maturidade, informalidade e dependência na gestão da empresa. Responda com base no que acontece na prática, não no que estaria idealmente previsto.'},
+   cluster:{tag:'Estágio de maturidade',title:'Em que estágio está a gestão',time:'4 minutos',
+     text:'Esta etapa classifica a empresa em um estágio geral de maturidade da gestão. O resultado orienta o que faz mais sentido aprofundar na avaliação da prática.'},
+   pratica:{tag:'Avaliação da prática',title:'Como a empresa executa a gestão na prática',time:'8 minutos',
+     text:'Uma leitura mais completa, por pilares de gestão e governança, adaptada ao seu papel na empresa. Responda com base no que acontece na prática na maior parte do tempo.'}
+ }[flow];
+ document.getElementById('app').innerHTML=`
+ <div class="narrow" style="margin:0 auto">
+   ${stepsBar(flow)}
+   <div class="card soft">
+     <span class="pill">${meta.tag}</span>
+     <h2 class="mt12">${meta.title}</h2>
+     <p class="sub">${meta.text}</p>
+     ${group?`<div class="notice mb16">Convite vinculado a <b>${esc(group.name)}</b> · código <span class="code-badge">${esc(group.code)}</span></div>`:''}
+     <div class="notice mb16">
+       <div><b>Tempo estimado:</b> ${meta.time}.</div>
+       <div class="mt8">Suas respostas não são exibidas individualmente para outros participantes.</div>
+       <div>Os resultados poderão compor análises anonimizadas da GoBraz.</div>
+     </div>
+     <button class="btn btn-primary block" onclick="setRoute({stage:'cadastro',flow:'${flow}'${code?",codigo:'"+code+"'":''}${p.persona?",persona:'"+p.persona+"'":''}})">Começar</button>
+   </div>
+ </div>`;
+ // If we already passed narrative (stage=cadastro) render the cadastro instead
+ if(p.stage==='cadastro')renderCadastro(flow,p);
+}
+function stepsBar(flow){const seq=[['termometro','Termômetro'],['cluster','Estágio'],['pratica','Prática'],['aprof','Aprofundamento']];
+ return `<div class="steps">${seq.map(([k,label])=>`<div class="st ${k===flow?'on':''}"><b>${label}</b>${k==='aprof'?'Conversa consultiva':'Leitura estruturada'}</div>`).join('')}</div>`;}
+
+/* --------------------------- Cadastro curto ------------------------------ */
+function renderCadastro(flow,p){
+ const code=(p.codigo||'').toUpperCase();const group=code?groupByCode(code):null;
+ const persona=PERSONAS[p.persona]?p.persona:'';
+ document.getElementById('app').innerHTML=`
+ <div class="narrow" style="margin:0 auto">
+   ${stepsBar(flow)}
+   <div class="card soft">
+     <span class="pill">Antes de começar</span>
+     <h2 class="mt12">Antes de começar, personalize sua leitura</h2>
+     <p class="sub">Um cadastro curto para vincular sua leitura ao grupo empresarial correto e adaptar as perguntas ao seu papel.</p>
+     ${group?`<div class="notice mb16">Grupo: <b>${esc(group.name)}</b> · <span class="code-badge">${esc(group.code)}</span></div>`:''}
+     <div id="cad-err"></div>
+     <div class="grid2">
+       <label class="field"><span class="lab">Nome completo <span class="req">*</span></span><input id="f-name"></label>
+       <label class="field"><span class="lab">E-mail <span class="req">*</span></span><input id="f-email" type="email"></label>
+     </div>
+     <div class="grid2">
+       <label class="field"><span class="lab">WhatsApp <span class="req">*</span></span><input id="f-phone" placeholder="(00) 00000-0000"></label>
+       <label class="field"><span class="lab">Empresa <span class="req">*</span></span><input id="f-company" value="${esc(group?.name||'')}"></label>
+     </div>
+     <div class="grid2">
+       <label class="field"><span class="lab">Cargo / função <span class="req">*</span></span><input id="f-position"></label>
+       <label class="field"><span class="lab">Seu papel nesta resposta <span class="req">*</span></span>
+         <select id="f-persona"><option value="">Selecione...</option>${PKEYS.map(k=>`<option value="${k}" ${persona===k?'selected':''}>${PERSONAS[k]}</option>`).join('')}</select></label>
+     </div>
+     <label class="check mt8"><input id="f-consent" type="checkbox"><span>Autorizo a GoBraz a usar minhas respostas para leitura de gestão. Comparativos e benchmarks, quando houver, serão sempre anonimizados.</span></label>
+     <button class="btn btn-primary block mt16" onclick="submitCadastro('${flow}','${code}')">Iniciar leitura</button>
+   </div>
+ </div>`;
+}
+function submitCadastro(flow,code){
+ const data={name:val('f-name'),email:val('f-email').toLowerCase(),phone:val('f-phone'),company:val('f-company'),position:val('f-position'),persona:val('f-persona'),consent:document.getElementById('f-consent').checked};
+ const missing=['name','email','phone','company','position','persona'].filter(k=>!data[k]);
+ if(missing.length||!data.consent||!data.email.includes('@')){document.getElementById('cad-err').innerHTML='<div class="notice warn mb12">Preencha os campos obrigatórios, informe um e-mail válido e aceite o uso das informações.</div>';return;}
+ let group=code?groupByCode(code):null;if(!group)group=getOrCreateGroup(data.company);
+ let u=userByEmail(data.email);if(!u){u={id:uid('u'),createdAt:now()};S.users.push(u);}
+ // [PERMISSÃO] papel derivado da persona: 'socio' => role socio; consultor nunca é sobrescrito
+ Object.assign(u,{name:data.name,email:data.email,phone:data.phone,company:data.company,position:data.position,persona:data.persona,consent:data.consent,updatedAt:now()});
+ if(u.role!=='admin')u.role=data.persona==='socio'?'socio':'respondente';
+ S.current=u.id;
+ save(S);Sync.push('group',group);Sync.push('user',u);
+ const existing=S.responses.find(r=>r.userId===u.id&&r.groupId===group.id&&r.type===flow&&r.status==='completed'&&!r.reopen);
+ if(existing){save(S);setRoute({result:existing.id});return;}
+ const r={id:uid('r'),type:flow,userId:u.id,groupId:group.id,persona:data.persona,status:'in_progress',answers:{},createdAt:now(),updatedAt:now(),reopen:false};
+ S.responses.push(r);save(S);Sync.push('response',r);setRoute({rid:r.id});
+}
+
+/* ------------------------------- Formulário ------------------------------ */
+function renderForm(rid){const r=respById(rid);if(!r)return setRoute({});
+ const u=currentUser();if(!u||(u.id!==r.userId&&!isAdmin(u)))return setRoute({});
+ const g=S.groups.find(x=>x.id===r.groupId);const qs=questionsFor(r);
+ const answered=qs.filter(qq=>typeof r.answers?.[qq.id]==='number').length;const pct=Math.round(answered/qs.length*100);
+ const label={termometro:'Leitura inicial da gestão',cluster:'Estágio de maturidade',pratica:'Avaliação da prática'}[r.type];
+ document.getElementById('app').innerHTML=`
+ <div class="narrow" style="margin:0 auto">
+   <div class="flex between centered wrapgap gap12 mb12">
+     <div><span class="pill">${label}</span><div class="small muted mt8">${esc(g.name)} · ${esc(PERSONAS[r.persona]||r.persona)} · ${pct}% concluído</div></div>
+     <span class="code-badge">${esc(g.code)}</span>
+   </div>
+   <div class="progress"><div style="width:${pct}%"></div></div>
+   <div class="notice mb16">Responda com base no que acontece na prática na maior parte do tempo — não no que seria ideal.</div>
+   ${qs.map((qq,i)=>renderQ(r,qq,i)).join('')}
+   <button class="btn btn-primary block mt16" onclick="finishForm('${r.id}')">Finalizar e ver resultado</button>
+ </div>`;
+ qs.forEach(qq=>scaleOf(qq.scale).opts.forEach(o=>{const el=document.getElementById(`opt_${qq.id}_${o.v}`);if(el)el.onclick=()=>{r.answers[qq.id]=o.v;r.updatedAt=now();save(S);renderForm(r.id);};}));
+}
+function renderQ(r,qq,i){const sc=scaleOf(qq.scale);const cur=r.answers?.[qq.id];
+ return `<div class="q"><div class="qhead"><div class="qn">${i+1}</div><div class="qtext">${esc(qq.p)}</div></div>
+  <div class="qmeta">Escala ${qq.scale} · ${sc.name}${qq.pillarName?' · '+esc(qq.pillarName):''}</div>
+  <div class="opts">${sc.opts.map(o=>`<div class="opt ${cur===o.v?'sel':''}" id="opt_${qq.id}_${o.v}"><span class="ov">${o.v}</span><span>${esc(o.t)}</span></div>`).join('')}</div></div>`;
+}
+function finishForm(rid){const r=respById(rid);const qs=questionsFor(r);
+ if(qs.some(qq=>typeof r.answers?.[qq.id]!=='number')){toast('Responda todas as perguntas.');return;}
+ r.status='completed';r.completedAt=now();r.reopen=false;r.updatedAt=now();
+ r.score=calcScore(r);
+ if(r.type==='cluster')r.cluster=clusterOf(r.score);
+ save(S);Sync.push('response',r);setRoute({result:r.id});
+}
+
+/* -------------------------------- Resultados ----------------------------- */
+function renderResult(rid){const r=respById(rid);if(!r)return setRoute({});
+ const u=currentUser();const owner=S.users.find(x=>x.id===r.userId);const g=S.groups.find(x=>x.id===r.groupId);
+ // [PERMISSÃO] só o próprio dono, sócio do grupo ou consultor podem ver o resultado
+ if(!u||(u.id!==r.userId&&!isAdmin(u))){return setRoute({});}
+ if(r.type==='termometro')return resultTermometro(r,u,owner,g);
+ if(r.type==='cluster')return resultCluster(r,u,owner,g);
+ return resultPratica(r,u,owner,g);
+}
+
+function resultHeader(tag,g,owner,r,score){return `
+ <div class="flex between centered wrapgap gap12">
+   <div><span class="pill">${tag}</span><h2 class="mt8" style="margin-bottom:2px">${esc(g.name)}</h2>
+     <div class="small muted">${esc(owner.name)} · ${esc(PERSONAS[r.persona]||r.persona)} · <span class="code-badge">${esc(g.code)}</span></div></div>
+   ${score!=null?`<div class="center"><div class="gauge"><div><div class="big" style="color:${scoreColor(score)}">${score.toFixed(1)}</div><div class="small muted center">de 5,0</div></div></div></div>`:''}
+ </div>`;}
+
+function resultTermometro(r,u,owner,g){const sc=calcScore(r);
+ const stage=sc>=4.2?'Gestão madura':sc>=3.4?'Gestão em estruturação':sc>=2.6?'Gestão informal em transição':sc>=1.8?'Informalidade relevante':'Alta dependência';
+ // sinais que merecem atenção: 2 perguntas de menor nota
+ const low=THERMO.map(t=>({t,v:r.answers[t.id]})).sort((a,b)=>a.v-b.v).slice(0,2);
+ document.getElementById('app').innerHTML=`
+ <div class="narrow" style="margin:0 auto">
+   <div class="card soft">
+     ${resultHeader('Sua leitura inicial',g,owner,r,sc)}
+     <div class="pill ${sc>=3.4?'ok':sc>=2.6?'warn':'red'} mt16">${stage}</div>
+     <div class="divider"></div>
+     <h3>O que sua resposta sugere</h3>
+     <p class="muted">Sua leitura inicial indica sinais relevantes sobre como a empresa decide, executa e organiza sua gestão. O ponto mais importante não é apenas a nota. Em empresas de dono, o principal risco muitas vezes aparece quando sócios, sucessores e lideranças percebem a gestão de formas diferentes.</p>
+     <h3 class="mt16">Sinais que merecem atenção</h3>
+     <ul class="muted">${low.map(x=>`<li>${esc(x.t.p)} <span class="xs">(${x.v}/5)</span></li>`).join('')}</ul>
+     <h3 class="mt16">Por que aprofundar</h3>
+     <p class="muted">Uma leitura individual mostra sua percepção. O valor real aparece quando comparamos percepções e entendemos o contexto por trás dos números.</p>
+   </div>
+
+   <div class="card">
+     <h3 class="mb16">Próximos passos</h3>
+     <div class="stack">
+       <div class="cta primary"><div class="cta-head"><div class="num">1</div><div><h4>Complete seu cadastro para liberar comparativos futuros</h4>
+         <p>À medida que outros empresários responderem, a GoBraz poderá disponibilizar visões anonimizadas para comparar sua empresa com outros grupos por segmento, porte e estágio de maturidade.</p></div></div>
+         <button class="btn btn-primary" onclick="showComplement('${owner.id}')">Liberar comparativos futuros</button></div>
+       <div class="cta"><div class="cta-head"><div class="num">2</div><div><h4>Aprofundar a leitura da empresa</h4>
+         <p>Responda a avaliação de estágio e a avaliação da prática para identificar padrões por pilar e preparar uma leitura mais consistente.</p></div></div>
+         <button class="btn btn-outline" onclick="setRoute({flow:'cluster',codigo:'${g.code}',persona:'${r.persona}',stage:'cadastro'})">Continuar para avaliação de estágio</button></div>
+       <div class="cta secondary"><div class="cta-head"><div class="num">3</div><div><h4>Convidar outro sócio para o termômetro</h4>
+         <p>A leitura ganha força quando outros sócios também compartilham sua percepção inicial.</p></div></div>
+         <button class="btn btn-outline" onclick="showInvite('${g.code}')">Convidar sócios</button></div>
+     </div>
+   </div>
+   <div class="center mt16"><button class="btn btn-ghost" onclick="setRoute({})">Voltar ao início</button></div>
+ </div>`;
+}
+
+function resultCluster(r,u,owner,g){const sc=calcScore(r);const ck=r.cluster||clusterOf(sc);const c=CLUSTERS[ck];
+ document.getElementById('app').innerHTML=`
+ <div class="narrow" style="margin:0 auto">
+   <div class="card soft">
+     ${resultHeader('Estágio de maturidade',g,owner,r,sc)}
+     <div class="pill purple mt16">${ck} — ${esc(c.name)}</div>
+     <div class="divider"></div>
+     <h3>O que este estágio significa</h3>
+     <p class="muted">${esc(c.desc)}</p>
+     <div class="notice mt16"><b>Recomendação da GoBraz:</b> ${esc(c.rec)}</div>
+   </div>
+   <div class="card">
+     <div class="cta primary"><div class="cta-head"><div class="num">→</div><div><h4>Avançar para a avaliação da prática</h4>
+       <p>Leitura por pilares de gestão e governança, adaptada ao seu papel, para identificar forças e pontos de atenção.</p></div></div>
+       <button class="btn btn-primary" onclick="setRoute({flow:'pratica',codigo:'${g.code}',persona:'${r.persona}',stage:'cadastro'})">Iniciar avaliação da prática</button></div>
+     <div class="cta secondary mt12"><div class="cta-head"><div class="num">+</div><div><h4>Convidar outras pessoas-chave</h4>
+       <p>Sócios, sucessores e lideranças no mesmo código empresarial enriquecem a leitura.</p></div></div>
+       <button class="btn btn-outline" onclick="showInvite('${g.code}')">Gerar convites</button></div>
+   </div>
+   <div class="center mt16"><button class="btn btn-ghost" onclick="setRoute({})">Voltar ao início</button></div>
+ </div>`;
+}
+
+function resultPratica(r,u,owner,g){const sc=calcScore(r);
+ const ps=calcPillars(r);
+ // [PERMISSÃO] média dos demais só com 3+ concluídos; sócio nunca vê respostas individuais nem quebra por persona
+ const oAvg=othersAverage(g.id,r.id);const oPil=othersPillars(g.id,r.id);
+ const ranked=PILLARS.map(p=>({p,v:ps[p.id]})).filter(x=>x.v!=null).sort((a,b)=>b.v-a.v);
+ const strong=ranked.slice(0,2);const weak=ranked.slice(-2).reverse();
+ const final=releasedAnalysis(g.id);
+ document.getElementById('app').innerHTML=`
+ <div class="narrow" style="margin:0 auto">
+   <div class="card soft">
+     ${resultHeader('Avaliação da prática',g,owner,r,sc)}
+     <div class="divider"></div>
+     <div class="grid2">
+       <div><h3>Pilares mais fortes</h3><ul class="muted">${strong.map(x=>`<li>${esc(x.p.name)} <b style="color:${scoreColor(x.v)}">${x.v.toFixed(1)}</b></li>`).join('')}</ul></div>
+       <div><h3>Pilares de atenção</h3><ul class="muted">${weak.map(x=>`<li>${esc(x.p.name)} <b style="color:${scoreColor(x.v)}">${x.v.toFixed(1)}</b></li>`).join('')}</ul></div>
+     </div>
+   </div>
+
+   <div class="card" id="pratica-pillars">${pillarCard(ps,oAvg,oPil)}</div>
+
+   ${final?`<div class="card"><span class="pill ok">Análise final liberada pelo consultor</span><div class="mt12" style="white-space:pre-wrap;line-height:1.65">${esc(final.text)}</div></div>`:''}
+
+   <div class="card">
+     <span class="pill purple">Aprofundamento Consultivo GoBraz</span>
+     <h3 class="mt12">A conversa individual revela o contexto</h3>
+     <p class="muted">As etapas anteriores ajudam a identificar padrões gerais e possíveis pontos de atenção. Compreender as dores reais, as relações familiares, os dilemas de decisão e as prioridades de evolução exige uma conversa individual conduzida por especialista.</p>
+     <p><b>“As respostas estruturadas mostram padrões. A conversa individual revela contexto.”</b></p>
+     <div class="notice mt12"><b>O que você recebe:</b> leitura estruturada dos principais achados · identificação de dores e temas sensíveis · análise das divergências de percepção · hipóteses sobre causas dos gargalos · priorização dos temas de evolução · plano inicial de trabalho · recomendação de próximos passos.</div>
+     <button class="btn btn-primary block mt16" onclick="requestAprof('${r.id}')">Solicitar aprofundamento consultivo</button>
+     <p class="hint center">Disponível para membros GoBraz ou contratação avulsa.</p>
+   </div>
+
+   <div class="card">
+     <div class="cta secondary"><div class="cta-head"><div class="num">+</div><div><h4>Ampliar a leitura</h4>
+       <p>Convide outros sócios, sucessores e lideranças a responder no mesmo código empresarial.</p></div></div>
+       <button class="btn btn-outline" onclick="showInvite('${g.code}')">Convidar pessoas-chave</button></div>
+   </div>
+   <div class="center mt16 flex gap8 wrapgap" style="justify-content:center">
+     <button class="btn btn-ghost" onclick="setRoute({})">Início</button>
+     ${isAdmin(u)?`<button class="btn btn-outline" onclick="setRoute({view:'consultor',tab:'responses'})">Voltar ao painel</button>`:''}
+   </div>
+ </div>`;
+ if(oAvg!=null&&oPil)drawRadar(ps,oPil);
+ // [PERMISSÃO] cross-device: busca resumo público anonimizado no Sheets. A regra dos
+ // 3+ respondentes é reforçada no servidor; o front só exibe se o resumo vier populado.
+ if(Sync.isSheets())augmentPraticaMedia(g.id,r.id,ps);
+}
+function pillarCard(ps,oAvg,oPil){return `
+     <h3>Leitura por pilar</h3>
+     <p class="sub">${oAvg!=null?'Sua visão comparada à média dos demais respondentes do grupo.':'A média dos demais aparece quando houver pelo menos 3 respondentes concluídos no grupo.'}</p>
+     ${PILLARS.map(p=>{const v=ps[p.id]||0;const o=oPil?oPil[p.id]:null;return `
+       <div class="pillar-row"><div class="pl">${esc(p.name)}</div>
+         <div class="bar"><div style="width:${v/5*100}%;background:${scoreColor(v)}"></div></div>
+         <div class="val" style="color:${scoreColor(v)}">${v.toFixed(1)}</div>
+         ${o!=null?`<div class="val small muted" title="Média dos demais">~${o.toFixed(1)}</div>`:''}</div>`;}).join('')}
+     ${oAvg!=null?`<canvas id="radar" class="mt16" style="max-height:340px"></canvas>`:''}`;}
+async function augmentPraticaMedia(groupId,selfId,ps){
+ try{const sum=await Sync.publicSummary(groupId,selfId);
+  if(!sum||!(sum.completedCount>=3)||sum.othersAvg==null)return;   // regra 3+
+  const oPil=sum.pillars||null;const card=document.getElementById('pratica-pillars');
+  if(card){card.innerHTML=pillarCard(ps,sum.othersAvg,oPil);if(oPil)drawRadar(ps,oPil);}
+ }catch{}
+}
+function drawRadar(ps,ops){const ctx=document.getElementById('radar');if(!ctx||!window.Chart)return;
+ new Chart(ctx,{type:'radar',data:{labels:PILLARS.map(p=>p.name),datasets:[
+  {label:'Sua leitura',data:PILLARS.map(p=>ps[p.id]||0),borderColor:'#1160b8',backgroundColor:'rgba(17,96,184,.15)',pointBackgroundColor:'#1160b8'},
+  {label:'Média dos demais',data:PILLARS.map(p=>ops?.[p.id]||0),borderColor:'#1f9d55',backgroundColor:'rgba(31,157,85,.08)',pointBackgroundColor:'#1f9d55',borderDash:[5,3]}]},
+  options:{scales:{r:{min:0,max:5,ticks:{stepSize:1}}},plugins:{legend:{position:'bottom'}}}});
+}
+// Solicitação pública de aprofundamento cria registro no mesmo grupo (status Solicitado)
+function requestAprof(rid){const r=respById(rid);const g=S.groups.find(x=>x.id===r.groupId);const u=S.users.find(x=>x.id===r.userId);
+ const iv={id:uid('i'),groupId:g.id,userId:u.id,persona:r.persona,status:'Solicitado',cluster:'',pillars:[],criticality:'Média',requestedAt:now(),createdAt:now(),updatedAt:now(),notes:'',pain:'',hypotheses:'',divergences:'',next:'',plan:'',evidence:'',consultorId:''};
+ S.interviews.push(iv);
+ save(S);Sync.push('interview',iv);
+ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal center">
+   <div class="pill ok mb12">Solicitação registrada</div>
+   <h2>Recebemos seu interesse</h2>
+   <p class="muted">Um consultor da GoBraz entrará em contato para conduzir o Aprofundamento Consultivo, vinculado ao código <span class="code-badge">${esc(g.code)}</span>.</p>
+   <button class="btn btn-primary block mt12" onclick="closeModal()">Fechar</button></div></div>`;
+}
+
+/* ------------------------- Convites e complemento ------------------------ */
+function showInvite(code){const flows=[['termometro','Termômetro'],['cluster','Avaliação de estágio'],['pratica','Avaliação da prática']];
+ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">
+   <button class="btn btn-ghost btn-sm" style="float:right" onclick="closeModal()">✕</button>
+   <h2>Convidar pessoas-chave</h2>
+   <p class="sub">Links vinculados ao código empresarial <span class="code-badge">${esc(code)}</span>. Escolha a jornada e o papel.</p>
+   <label class="field"><span class="lab">Jornada</span><select id="inv-flow" onchange="renderInviteLinks('${code}')">${flows.map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label>
+   <div id="inv-links"></div>
+ </div></div>`;renderInviteLinks(code);}
+function renderInviteLinks(code){const flow=val('inv-flow')||'termometro';
+ document.getElementById('inv-links').innerHTML=PKEYS.map(k=>{const url=inviteLink(flow,code,k);
+  return `<div class="linkbox mb8"><b class="small" style="flex:0 0 120px">${PERSONAS[k]}</b><code>${esc(url)}</code><button class="btn btn-outline btn-sm" onclick="copy('${esc(url)}')">Copiar</button></div>`;}).join('');
+}
+function showComplement(uid_){const u=S.users.find(x=>x.id===uid_)||currentUser();if(!u)return;
+ const sel=(id,arr,cur)=>`<select id="${id}"><option></option>${arr.map(x=>`<option ${cur===x?'selected':''}>${x}</option>`).join('')}</select>`;
+ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">
+   <button class="btn btn-ghost btn-sm" style="float:right" onclick="closeModal()">✕</button>
+   <h2>Ajude a construir uma base coletiva de conhecimento</h2>
+   <p class="sub">Complete alguns dados da empresa para participar da construção coletiva de saberes da GoBraz. À medida que outros empresários responderem, poderemos disponibilizar visões anonimizadas sobre sua posição em relação a outros grupos.</p>
+   <div class="grid2">
+     <label class="field"><span class="lab">Segmento</span>${sel('x-seg',SEGMENTS,u.segment)}</label>
+     <label class="field"><span class="lab">Subsegmento</span><input id="x-sub" value="${esc(u.subsegment||'')}"></label>
+   </div>
+   <div class="grid2">
+     <label class="field"><span class="lab">Cidade/UF</span><input id="x-city" value="${esc(u.city||'')}"></label>
+     <label class="field"><span class="lab">Faixa de faturamento</span>${sel('x-rev',REVENUES,u.revenue)}</label>
+   </div>
+   <div class="grid2">
+     <label class="field"><span class="lab">Nº de colaboradores</span>${sel('x-head',HEADCOUNT,u.headcount)}</label>
+     <label class="field"><span class="lab">Nº de sócios</span><input id="x-partners" type="number" min="1" value="${esc(u.partners||'')}"></label>
+   </div>
+   <div class="grid2">
+     <label class="field"><span class="lab">Empresa familiar?</span>${sel('x-family',['Sim','Não'],u.familyBusiness)}</label>
+     <label class="field"><span class="lab">Geração atual</span>${sel('x-gen',['1ª geração','2ª geração','3ª geração ou mais'],u.generation)}</label>
+   </div>
+   <div class="grid2">
+     <label class="field"><span class="lab">Possui sucessores atuando?</span>${sel('x-succ',['Sim','Não','Em preparação'],u.successors)}</label>
+     <label class="field"><span class="lab">Conselho/comitê/fórum de gestão?</span>${sel('x-gov',['Sim','Não','Em implantação'],u.governance)}</label>
+   </div>
+   <label class="field"><span class="lab">Principal momento da empresa</span>${sel('x-moment',MOMENTS,u.moment)}</label>
+   <button class="btn btn-primary block" onclick="saveComplement('${u.id}')">Salvar e liberar comparativos</button>
+   <button class="btn btn-ghost block mt8" onclick="closeModal()">Agora não</button>
+ </div></div>`;
+}
+function saveComplement(uid_){const u=S.users.find(x=>x.id===uid_);if(!u)return;
+ Object.assign(u,{segment:val('x-seg'),subsegment:val('x-sub'),city:val('x-city'),revenue:val('x-rev'),headcount:val('x-head'),partners:val('x-partners'),familyBusiness:val('x-family'),generation:val('x-gen'),successors:val('x-succ'),governance:val('x-gov'),moment:val('x-moment'),benchmarkAt:now(),updatedAt:now()});
+ save(S);Sync.push('user',u);closeModal();
+ // Após completar, oferecer próximos convites
+ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal center">
+   <div class="pill ok mb12">Cadastro completo</div><h2>Obrigado por contribuir</h2>
+   <p class="muted">Seus dados ajudam a construir a base coletiva da GoBraz.</p>
+   <div class="stack mt16" style="text-align:left">
+     <div class="cta primary"><div class="cta-head"><div class="num">1</div><div><h4>Convidar para a avaliação da prática</h4><p>Leitura completa por pilares para pessoas-chave.</p></div></div>
+       <button class="btn btn-primary" onclick="closeModal();showInvite('${esc((S.groups.find(g=>g.id===(S.responses.find(r=>r.userId===u.id)?.groupId))||{}).code||'')}')">Gerar convites</button></div>
+   </div>
+   <button class="btn btn-ghost block mt12" onclick="closeModal()">Fechar</button></div></div>`;
+}
+
+/* ================================ PAINEL ================================= */
+let adminTab='overview';
+function renderAdmin(){const p=q();adminTab=p.tab||adminTab;
+ const tabs=[['overview','Visão geral'],['groups','Grupos empresariais'],['responses','Respondentes'],['journeys','Jornadas'],['interviews','Aprofundamento'],['analysis','Análise final'],['base','Base consolidada'],['sync','Sincronização']];
+ document.getElementById('app').innerHTML=`
+ <div class="flex between centered wrapgap gap12 mb16">
+   <div><h2 style="margin-bottom:2px">Painel do Consultor</h2><div class="small muted">Grupos, respondentes, aprofundamentos e base consolidada.</div></div>
+   <div class="flex gap8 wrapgap">
+     <button class="btn btn-outline btn-sm" onclick="showCreateGroup()">+ Grupo empresarial</button>
+     <a class="btn btn-ghost btn-sm" href="${baseUrl()}?dev=1">Abrir modo simulação</a>
+     <button class="btn btn-ghost btn-sm" onclick="exportJSON()">Exportar JSON</button>
+     <button class="btn btn-ghost btn-sm" onclick="importJSONModal()">Importar JSON</button>
+   </div>
+ </div>
+ <div class="tabs">${tabs.map(([k,v])=>`<button class="${adminTab===k?'active':''}" onclick="adminTab='${k}';setRoute({view:'consultor',tab:'${k}'})">${v}</button>`).join('')}</div>
+ <div id="admin-body"></div>`;
+ renderAdminBody();
+}
+function renderAdminBody(){const el=document.getElementById('admin-body');
+ ({overview:adminOverview,groups:adminGroups,responses:adminResponses,journeys:adminJourneys,interviews:adminInterviews,analysis:adminAnalysis,base:adminBase,sync:adminSync}[adminTab]||adminOverview)(el);
+}
+// Aba Sincronização — detalhes técnicos ficam restritos ao consultor (nunca ao participante).
+function adminSync(el){const pend=loadPending();
+ el.innerHTML=`
+ <div class="grid2">
+  <div class="card"><h3>Configuração de sincronização</h3>
+   <p class="sub">MVP sincronizado via Google Sheets (Apps Script). Export/import JSON permanece disponível como backup.</p>
+   <label class="field"><span class="lab">Provider</span>
+     <select id="sy-provider"><option value="local" ${STORAGE_CONFIG.provider==='local'?'selected':''}>Local (somente este navegador)</option><option value="sheets" ${STORAGE_CONFIG.provider==='sheets'?'selected':''}>Google Sheets</option></select></label>
+   <label class="field"><span class="lab">Script URL (Web App)</span><input id="sy-url" value="${esc(STORAGE_CONFIG.scriptUrl)}" placeholder="https://script.google.com/macros/s/XXXX/exec"></label>
+   <label class="field"><span class="lab">Admin token</span><input id="sy-token" type="password" value="${esc(STORAGE_CONFIG.adminToken)}" placeholder="colado apenas neste navegador do consultor"></label>
+   <div class="flex gap8 wrapgap">
+     <button class="btn btn-primary btn-sm" onclick="saveSyncCfg()">Salvar configuração</button>
+     <button class="btn btn-outline btn-sm" onclick="testConnection()">Testar conexão</button>
+     <button class="btn btn-outline btn-sm" onclick="syncNow()">Sincronizar agora</button>
+   </div>
+  </div>
+  <div class="card"><h3>Status</h3>
+   <div class="pillar-row"><div class="pl">Provider atual</div><div class="val" style="flex:1;text-align:left">${STORAGE_CONFIG.provider==='sheets'?'Google Sheets':'Local'}</div></div>
+   <div class="pillar-row"><div class="pl">Status sync</div><div class="val" style="flex:1;text-align:left"><b id="sync-status">${esc(SyncState.status)}</b></div></div>
+   <div class="pillar-row"><div class="pl">Última sincronização</div><div class="val" style="flex:1;text-align:left">${SyncState.lastSync?new Date(SyncState.lastSync).toLocaleString('pt-BR'):'—'}</div></div>
+   <div class="pillar-row"><div class="pl">Registros locais</div><div class="val" style="flex:1;text-align:left">${S.groups.length}g · ${S.users.filter(u=>u.role!=='admin').length}p · ${S.responses.length}r</div></div>
+   <div class="pillar-row"><div class="pl">Registros remotos</div><div class="val" style="flex:1;text-align:left">${SyncState.remoteCounts?`${SyncState.remoteCounts.groups}g · ${SyncState.remoteCounts.users}u · ${SyncState.remoteCounts.responses}r`:'—'}</div></div>
+   <div class="pillar-row"><div class="pl">Pendências locais</div><div class="val" style="flex:1;text-align:left"><b style="color:${pend.length?'var(--warn)':'var(--ok)'}">${pend.length}</b></div></div>
+   <div class="notice mt12">Segurança MVP: o <b>Admin token</b> fica salvo apenas neste navegador. Não é segurança de produção — veja o README.</div>
+  </div>
+ </div>`;
+}
+function saveSyncCfg(){STORAGE_CONFIG.provider=val('sy-provider');STORAGE_CONFIG.scriptUrl=val('sy-url');STORAGE_CONFIG.adminToken=val('sy-token');saveCfg();
+ Sync.provider=STORAGE_CONFIG.provider==='sheets'?GoogleSheetsProvider:LocalStorageProvider;toast('Configuração salva');renderAdminBody();}
+async function testConnection(){if(STORAGE_CONFIG.provider!=='sheets'||!STORAGE_CONFIG.scriptUrl){toast('Configure provider Sheets e Script URL');return;}
+ setSyncStatus('Sincronizando');try{const r=await apiCall('GET','health');setSyncStatus(r&&r.ok?'Sincronizado':'Erro de sincronização');toast(r&&r.ok?('Conexão OK · v'+(r.version||'?')):'Falha na conexão');}catch(e){setSyncStatus('Offline/cache local');toast('Erro: '+e.message);}}
+async function syncNow(){if(!Sync.isSheets()){toast('Provider Local: nada a sincronizar');return;}
+ setSyncStatus('Sincronizando');
+ try{const f=await GoogleSheetsProvider.flush();                     // envia pendências
+  const data=await Sync.pull();                                     // [PERMISSÃO] adminBootstrap requer token
+  if(data){mergeRemote(data);SyncState.remoteCounts={groups:(data.groups||[]).length,users:(data.users||[]).length,responses:(data.responses||[]).length};}
+  SyncState.lastSync=now();setSyncStatus('Sincronizado');toast(`Sincronizado · ${f.sent} enviado(s), ${loadPending().length} pendência(s)`);renderAdminBody();
+ }catch(e){setSyncStatus('Erro de sincronização');toast('Erro: '+e.message);}}
+// Merge remoto -> local por id, resolvendo conflito pelo updatedAt mais recente.
+function mergeRemote(data){['groups','users','responses','interviews','analysis'].forEach(coll=>{
+  const remote=data[coll]||[];const byId=new Map(S[coll].map(x=>[x.id,x]));
+  remote.forEach(rem=>{const loc=byId.get(rem.id);
+    if(!loc)S[coll].push(rem);
+    else if((rem.updatedAt||'')>(loc.updatedAt||''))Object.assign(loc,rem);});
+ });save(S);}
+function adminOverview(el){const t=n=>S.responses.filter(r=>r.type===n).length;
+ el.innerHTML=`<div class="grid4">
+   <div class="card"><div class="stat">${S.groups.length}</div><div class="small muted">Grupos</div></div>
+   <div class="card"><div class="stat">${S.users.filter(u=>u.role!=='admin').length}</div><div class="small muted">Participantes</div></div>
+   <div class="card"><div class="stat">${t('termometro')+t('cluster')+t('pratica')}</div><div class="small muted">Leituras</div></div>
+   <div class="card"><div class="stat">${S.interviews.length}</div><div class="small muted">Aprofundamentos</div></div>
+ </div>
+ <div class="card mt16"><h3>Jornada consultiva</h3>
+   <p class="sub">Termômetro → Avaliação de estágio (cluster) → Avaliação da prática → Aprofundamento Consultivo → Análise final liberada aos sócios.</p>
+   ${S.groups.map(g=>{const rs=completedPratica(g.id);const a=rs.length?avg(rs.map(calcScore)):null;const sol=S.interviews.filter(i=>i.groupId===g.id).length;
+     return `<div class="flex between centered" style="padding:10px 0;border-top:1px solid var(--line)"><div><b>${esc(g.name)}</b> <span class="code-badge">${esc(g.code)}</span><div class="xs muted">${rs.length} prática(s) concluída(s) · ${sol} aprofundamento(s)</div></div><b style="color:${a!=null?scoreColor(a):'#5b6b7d'}">${a!=null?a.toFixed(1):'—'}</b></div>`;}).join('')||'<div class="muted">Nenhum grupo ainda.</div>'}
+ </div>`;
+}
+function adminGroups(el){el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Grupo</th><th>Código</th><th>Status</th><th>Respostas</th><th>Convites</th><th></th></tr></thead><tbody>
+ ${S.groups.map(g=>{const rs=S.responses.filter(r=>r.groupId===g.id);return `<tr>
+   <td><b>${esc(g.name)}</b><div class="xs muted">${esc(g.segment||'')}</div></td>
+   <td><span class="code-badge">${esc(g.code)}</span></td>
+   <td><span class="pill ${g.status==='active'?'ok':'grey'}">${esc(g.status)}</span></td>
+   <td>${rs.length}</td>
+   <td><button class="btn btn-outline btn-sm" onclick="showInvite('${g.code}')">Gerar links</button></td>
+   <td><button class="btn btn-ghost btn-sm" onclick="editGroup('${g.id}')">Editar</button></td></tr>`;}).join('')||'<tr><td colspan="6" class="muted">Nenhum grupo.</td></tr>'}
+ </tbody></table></div>`;
+}
+let respFilter={group:'',persona:'',type:'',segment:''};
+function adminResponses(el){
+ const opts=(cur,arr,fn=x=>x)=>arr.map(x=>`<option value="${fn(x)}" ${cur===fn(x)?'selected':''}>${x.label||x}</option>`).join('');
+ let rows=S.responses.filter(r=>(!respFilter.group||r.groupId===respFilter.group)&&(!respFilter.persona||r.persona===respFilter.persona)&&(!respFilter.type||r.type===respFilter.type)).filter(r=>{const u=S.users.find(x=>x.id===r.userId)||{};return !respFilter.segment||u.segment===respFilter.segment;});
+ el.innerHTML=`<div class="grid4 mb16">
+   <select onchange="respFilter.group=this.value;renderAdminBody()"><option value="">Todos os grupos</option>${S.groups.map(g=>`<option value="${g.id}" ${respFilter.group===g.id?'selected':''}>${esc(g.name)}</option>`).join('')}</select>
+   <select onchange="respFilter.type=this.value;renderAdminBody()"><option value="">Todas as jornadas</option>${[['termometro','Termômetro'],['cluster','Cluster'],['pratica','Prática']].map(([k,v])=>`<option value="${k}" ${respFilter.type===k?'selected':''}>${v}</option>`).join('')}</select>
+   <select onchange="respFilter.persona=this.value;renderAdminBody()"><option value="">Todas as personas</option>${PKEYS.map(k=>`<option value="${k}" ${respFilter.persona===k?'selected':''}>${PERSONAS[k]}</option>`).join('')}</select>
+   <select onchange="respFilter.segment=this.value;renderAdminBody()"><option value="">Todos os segmentos</option>${SEGMENTS.map(s=>`<option ${respFilter.segment===s?'selected':''}>${s}</option>`).join('')}</select>
+ </div>
+ <div class="table-wrap"><table><thead><tr><th>Participante</th><th>Grupo</th><th>Jornada</th><th>Persona</th><th>Status</th><th>Nota</th><th>Ações</th></tr></thead><tbody>
+ ${rows.map(r=>{const u=S.users.find(x=>x.id===r.userId)||{},g=S.groups.find(x=>x.id===r.groupId)||{};return `<tr>
+   <td><b>${esc(u.name)}</b><div class="xs muted">${esc(u.email||'')} · ${esc(u.position||'')}</div></td>
+   <td>${esc(g.name)}<div class="xs"><span class="code-badge">${esc(g.code)}</span></div></td>
+   <td>${r.type}${r.cluster?` <span class="pill purple">${r.cluster}</span>`:''}</td>
+   <td>${esc(PERSONAS[r.persona]||r.persona)}</td>
+   <td><span class="pill ${r.status==='completed'?'ok':'warn'}">${r.status==='completed'?'concluído':'em andamento'}</span></td>
+   <td>${r.status==='completed'?calcScore(r).toFixed(1):'—'}</td>
+   <td class="flex gap8 wrapgap">
+     <button class="btn btn-outline btn-sm" onclick="setRoute({result:'${r.id}'})">Ver</button>
+     <button class="btn btn-ghost btn-sm" onclick="showComplement('${u.id}')">Cadastro</button>
+     <button class="btn btn-ghost btn-sm" onclick="editResponse('${r.id}')">Editar</button>
+     <button class="btn btn-ghost btn-sm" onclick="reopenResponse('${r.id}')">Reabrir</button>
+   </td></tr>`;}).join('')||'<tr><td colspan="7" class="muted">Nenhuma resposta com esses filtros.</td></tr>'}
+ </tbody></table></div>`;
+}
+function adminJourneys(el){el.innerHTML=`<div class="grid3">
+  ${[['termometro','Termômetro','Leitura inicial da gestão'],['cluster','Avaliação de estágio','Classifica a empresa em C1..C5'],['pratica','Avaliação da prática','Leitura por pilares, por persona']].map(([k,t,d])=>{
+    const n=S.responses.filter(r=>r.type===k).length;const c=S.responses.filter(r=>r.type===k&&r.status==='completed').length;
+    return `<div class="card"><span class="pill">${t}</span><p class="sub mt8">${d}</p><div class="stat">${c}</div><div class="small muted">concluídas de ${n} iniciadas</div>
+      <div class="mt12"><b class="small">Gerar link de convite</b><div class="mt8">${S.groups.length?`<select id="jl-${k}" onchange="jlUpdate('${k}')">${S.groups.map(g=>`<option value="${g.code}">${esc(g.name)} (${g.code})</option>`).join('')}</select><div id="jlout-${k}" class="mt8"></div>`:'<span class="muted small">Crie um grupo primeiro.</span>'}</div></div>
+    </div>`;}).join('')}
+ </div>`;
+ ['termometro','cluster','pratica'].forEach(jlUpdate);
+}
+function jlUpdate(k){const code=val('jl-'+k);const out=document.getElementById('jlout-'+k);if(!out)return;
+ out.innerHTML=PKEYS.map(pk=>{const url=inviteLink(k,code,pk);return `<div class="linkbox mb8"><b class="small" style="flex:0 0 90px">${PERSONAS[pk]}</b><code>${esc(url)}</code><button class="btn btn-outline btn-sm" onclick="copy('${esc(url)}')">Copiar</button></div>`;}).join('');
+}
+function adminInterviews(el){el.innerHTML=`
+ <div class="notice mb16">O Aprofundamento Consultivo é registrado pelo consultor e fica vinculado ao mesmo código empresarial, preservando a leitura consolidada do grupo.</div>
+ <button class="btn btn-primary btn-sm mb16" onclick="interviewModal()">+ Registrar aprofundamento</button>
+ <div class="table-wrap"><table><thead><tr><th>Grupo</th><th>Respondente</th><th>Cluster</th><th>Pilares críticos</th><th>Criticidade</th><th>Status</th><th></th></tr></thead><tbody>
+ ${S.interviews.map(i=>{const g=S.groups.find(x=>x.id===i.groupId)||{},u=S.users.find(x=>x.id===i.userId)||{};return `<tr>
+   <td>${esc(g.name)}<div class="xs"><span class="code-badge">${esc(g.code)}</span></div></td>
+   <td>${esc(u.name)}<div class="xs muted">${esc(PERSONAS[i.persona]||i.persona)}</div></td>
+   <td>${esc(i.cluster||'—')}</td>
+   <td>${esc((i.pillars||[]).join(', ')||'—')}</td>
+   <td><span class="pill ${i.criticality==='Alta'?'red':i.criticality==='Média'?'warn':'ok'}">${esc(i.criticality||'—')}</span></td>
+   <td><span class="pill grey">${esc(i.status||'—')}</span></td>
+   <td><button class="btn btn-outline btn-sm" onclick="interviewModal('${i.id}')">Abrir</button></td></tr>`;}).join('')||'<tr><td colspan="7" class="muted">Nenhum aprofundamento.</td></tr>'}
+ </tbody></table></div>`;
+}
+function interviewModal(iid){const i=iid?S.interviews.find(x=>x.id===iid):null;
+ const gid=i?i.groupId:(S.groups[0]?.id||'');
+ const groupSel=`<select id="i-group" onchange="iUsers()">${S.groups.map(g=>`<option value="${g.id}" ${gid===g.id?'selected':''}>${esc(g.name)} (${g.code})</option>`).join('')}</select>`;
+ const persona=i?i.persona:'socio';
+ const roteiroCore=APROF_CORE.map(qz=>`<li>${esc(qz)}</li>`).join('');
+ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">
+   <button class="btn btn-ghost btn-sm" style="float:right" onclick="closeModal()">✕</button>
+   <h2>Aprofundamento Consultivo GoBraz</h2>
+   <div class="grid2"><label class="field"><span class="lab">Código empresarial</span>${groupSel}</label>
+   <label class="field"><span class="lab">Respondente</span><select id="i-user"></select></label></div>
+   <div class="grid2"><label class="field"><span class="lab">Persona</span><select id="i-persona">${PKEYS.map(k=>`<option value="${k}" ${persona===k?'selected':''}>${PERSONAS[k]}</option>`).join('')}</select></label>
+   <label class="field"><span class="lab">Cluster da empresa</span><select id="i-cluster"><option value=""></option>${Object.keys(CLUSTERS).map(c=>`<option ${i?.cluster===c?'selected':''}>${c}</option>`).join('')}</select></label></div>
+   <div class="grid2"><label class="field"><span class="lab">Consultor responsável</span><input id="i-consultor" value="${esc(i?.consultorName||currentUser()?.name||'')}"></label>
+   <label class="field"><span class="lab">Data</span><input id="i-date" type="date" value="${(i?.date||new Date().toISOString().slice(0,10))}"></label></div>
+   <label class="field"><span class="lab">Pilares críticos</span><input id="i-pillars" value="${esc((i?.pillars||[]).join(', '))}" placeholder="Ex.: Decisão e autonomia, Papéis, Sucessão"></label>
+   <div class="grid2"><label class="field"><span class="lab">Criticidade</span><select id="i-crit"><option ${i?.criticality==='Baixa'?'selected':''}>Baixa</option><option ${!i||i?.criticality==='Média'?'selected':''}>Média</option><option ${i?.criticality==='Alta'?'selected':''}>Alta</option></select></label>
+   <label class="field"><span class="lab">Status</span><select id="i-status">${APROF_STATUS.map(s=>`<option ${i?.status===s?'selected':''}>${s}</option>`).join('')}</select></label></div>
+   <details class="mb12"><summary class="small bold">Roteiro sugerido (núcleo comum + por persona)</summary>
+     <div class="small muted mt8"><b>Núcleo comum</b><ol>${roteiroCore}</ol><b>Por persona</b><ol>${(APROF_PERSONA[persona]||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div></details>
+   <label class="field"><span class="lab">Transcrição / notas da entrevista</span><textarea id="i-notes">${esc(i?.notes||'')}</textarea></label>
+   <label class="field"><span class="lab">Dores principais</span><textarea id="i-pain">${esc(i?.pain||'')}</textarea></label>
+   <label class="field"><span class="lab">Hipóteses do consultor</span><textarea id="i-hyp">${esc(i?.hypotheses||'')}</textarea></label>
+   <label class="field"><span class="lab">Divergências percebidas</span><textarea id="i-div">${esc(i?.divergences||'')}</textarea></label>
+   <label class="field"><span class="lab">Próximo passo sugerido</span><textarea id="i-next">${esc(i?.next||'')}</textarea></label>
+   <label class="field"><span class="lab">Plano inicial de trabalho</span><textarea id="i-plan">${esc(i?.plan||'')}</textarea></label>
+   <button class="btn btn-primary block" onclick="saveInterview('${iid||''}')">Salvar aprofundamento</button>
+ </div></div>`;
+ iUsers(i?.userId);
+}
+function iUsers(preselect){const gid=val('i-group');const uids=[...new Set(S.responses.filter(r=>r.groupId===gid).map(r=>r.userId))];
+ const sel=document.getElementById('i-user');if(!sel)return;
+ sel.innerHTML=uids.map(id=>{const u=S.users.find(x=>x.id===id)||{};return `<option value="${id}" ${preselect===id?'selected':''}>${esc(u.name)} — ${esc(PERSONAS[u.persona]||u.persona)}</option>`;}).join('')||'<option value="">(sem respondentes)</option>';
+}
+function saveInterview(iid){const uidv=val('i-user'),u=S.users.find(x=>x.id===uidv)||{};
+ const data={groupId:val('i-group'),userId:uidv,persona:val('i-persona'),cluster:val('i-cluster'),consultorName:val('i-consultor'),date:val('i-date'),pillars:val('i-pillars').split(',').map(x=>x.trim()).filter(Boolean),criticality:val('i-crit'),status:val('i-status'),notes:val('i-notes'),pain:val('i-pain'),hypotheses:val('i-hyp'),divergences:val('i-div'),next:val('i-next'),plan:val('i-plan'),updatedAt:now()};
+ let iv;if(iid){iv=S.interviews.find(x=>x.id===iid);Object.assign(iv,data);}else{iv={id:uid('i'),createdAt:now(),consultorId:S.current,...data};S.interviews.push(iv);}
+ save(S);Sync.push('interview',iv);closeModal();renderAdminBody();toast('Aprofundamento salvo');
+}
+function adminAnalysis(el){el.innerHTML=`<div class="grid2">
+  <div class="card"><h3>Nova análise final</h3>
+   <label class="field"><span class="lab">Grupo</span><select id="a-group">${S.groups.map(g=>`<option value="${g.id}">${esc(g.name)} (${g.code})</option>`).join('')}</select></label>
+   <label class="field"><span class="lab">Análise consultiva final</span><textarea id="a-text" placeholder="Leitura consultiva, hipóteses, tensões, priorização e próximos passos..."></textarea></label>
+   <label class="check mb12"><input id="a-release" type="checkbox"><span>Liberar para o perfil Sócio</span></label>
+   <button class="btn btn-primary block" onclick="saveAnalysis()">Salvar análise</button></div>
+  <div class="card"><h3>Análises salvas</h3>
+   ${S.analysis.map(a=>{const g=S.groups.find(x=>x.id===a.groupId)||{};return `<div style="border-top:1px solid var(--line);padding:10px 0"><div class="flex between"><b>${esc(g.name)}</b><span class="pill ${a.status==='released'?'ok':'grey'}">${a.status}</span></div><div class="xs muted">${new Date(a.createdAt).toLocaleString('pt-BR')}</div><div class="small mt8" style="white-space:pre-wrap">${esc((a.text||'').slice(0,220))}${(a.text||'').length>220?'…':''}</div>${a.status!=='released'?`<button class="btn btn-outline btn-sm mt8" onclick="releaseAnalysis('${a.id}')">Liberar aos sócios</button>`:''}</div>`;}).join('')||'<div class="muted">Nenhuma análise.</div>'}
+  </div></div>`;
+}
+function saveAnalysis(){const gid=val('a-group'),text=val('a-text');if(!gid||!text)return toast('Grupo e texto obrigatórios.');
+ const an={id:uid('a'),groupId:gid,text,status:document.getElementById('a-release').checked?'released':'draft',createdAt:now(),updatedAt:now(),releasedAt:document.getElementById('a-release').checked?now():'',consultorId:S.current};S.analysis.push(an);save(S);Sync.push('analysis',an);renderAdminBody();toast('Análise salva');
+}
+function releaseAnalysis(aid){const a=S.analysis.find(x=>x.id===aid);a.status='released';a.releasedAt=now();a.updatedAt=now();save(S);Sync.push('analysis',a);renderAdminBody();toast('Análise liberada aos sócios');}
+function adminBase(el){const users=S.users.filter(u=>u.role!=='admin');
+ el.innerHTML=`<div class="notice mb16"><b>Base consolidada:</b> filtre por segmento, porte, persona, cidade, status e maturidade. Alimente com o cadastro complementar dos participantes.</div>
+ <div class="table-wrap"><table><thead><tr><th>Nome</th><th>Empresa</th><th>Persona</th><th>Segmento</th><th>Faturamento</th><th>Colab.</th><th>Cidade/UF</th><th>Momento</th></tr></thead><tbody>
+ ${users.map(u=>`<tr><td>${esc(u.name)}<div class="xs muted">${esc(u.email||'')}</div></td><td>${esc(u.company||'')}</td><td>${esc(PERSONAS[u.persona]||u.persona||'')}</td><td>${esc(u.segment||'—')}</td><td>${esc(u.revenue||'—')}</td><td>${esc(u.headcount||'—')}</td><td>${esc(u.city||'—')}</td><td>${esc(u.moment||'—')}</td></tr>`).join('')||'<tr><td colspan="8" class="muted">Sem participantes.</td></tr>'}
+ </tbody></table></div>`;
+}
+
+/* --------------------------- Grupos / edição ----------------------------- */
+function showCreateGroup(){document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">
+  <button class="btn btn-ghost btn-sm" style="float:right" onclick="closeModal()">✕</button>
+  <h2>Criar grupo empresarial</h2>
+  <label class="field"><span class="lab">Nome da empresa/grupo</span><input id="g-name"></label>
+  <div class="grid2"><label class="field"><span class="lab">Segmento</span><select id="g-seg"><option></option>${SEGMENTS.map(s=>`<option>${s}</option>`).join('')}</select></label>
+  <label class="field"><span class="lab">Faturamento</span><select id="g-rev"><option></option>${REVENUES.map(s=>`<option>${s}</option>`).join('')}</select></label></div>
+  <button class="btn btn-primary block" onclick="createGroup()">Criar e gerar código</button>
+ </div></div>`;}
+function createGroup(){const name=val('g-name');if(!name)return toast('Informe o nome.');
+ const g={id:uid('g'),code:newCode(),name,status:'active',segment:val('g-seg'),revenue:val('g-rev'),createdAt:now(),updatedAt:now()};S.groups.push(g);save(S);Sync.push('group',g);closeModal();renderAdminBody();toast('Grupo criado: '+g.code);
+}
+function editGroup(gid){const g=S.groups.find(x=>x.id===gid);if(!g)return;
+ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">
+  <button class="btn btn-ghost btn-sm" style="float:right" onclick="closeModal()">✕</button>
+  <h2>Editar grupo</h2>
+  <label class="field"><span class="lab">Nome</span><input id="eg-name" value="${esc(g.name)}"></label>
+  <div class="grid2"><label class="field"><span class="lab">Segmento</span><select id="eg-seg"><option></option>${SEGMENTS.map(s=>`<option ${g.segment===s?'selected':''}>${s}</option>`).join('')}</select></label>
+  <label class="field"><span class="lab">Status</span><select id="eg-status"><option ${g.status==='active'?'selected':''}>active</option><option ${g.status==='closed'?'selected':''}>closed</option></select></label></div>
+  <button class="btn btn-primary block" onclick="saveGroup('${gid}')">Salvar</button>
+ </div></div>`;}
+function saveGroup(gid){const g=S.groups.find(x=>x.id===gid);Object.assign(g,{name:val('eg-name'),segment:val('eg-seg'),status:val('eg-status'),updatedAt:now()});save(S);Sync.push('group',g);closeModal();renderAdminBody();}
+function editResponse(rid){const r=respById(rid);const qs=questionsFor(r);
+ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">
+  <button class="btn btn-ghost btn-sm" style="float:right" onclick="closeModal()">✕</button>
+  <h2>Editar respostas</h2><p class="sub">Edição administrativa vinculada ao mesmo participante e grupo.</p>
+  ${qs.map(qq=>{const sc=scaleOf(qq.scale);return `<label class="field"><span class="lab">${esc(qq.p)}</span><select id="er-${qq.id}">${sc.opts.map(o=>`<option value="${o.v}" ${r.answers[qq.id]===o.v?'selected':''}>${o.v} — ${esc(o.t)}</option>`).join('')}</select></label>`;}).join('')}
+  <button class="btn btn-primary block" onclick="saveEditedResponse('${rid}')">Salvar edição</button>
+ </div></div>`;}
+function saveEditedResponse(rid){const r=respById(rid);questionsFor(r).forEach(qq=>{const v=document.getElementById('er-'+qq.id)?.value;if(v!=null)r.answers[qq.id]=Number(v);});r.score=calcScore(r);if(r.type==='cluster')r.cluster=clusterOf(r.score);r.updatedAt=now();save(S);Sync.push('response',r);closeModal();renderAdminBody();toast('Respostas atualizadas');}
+function reopenResponse(rid){const r=respById(rid);r.status='in_progress';r.reopen=true;r.updatedAt=now();save(S);Sync.push('response',r);renderAdminBody();toast('Formulário reaberto para o participante.');}
+
+/* ------------------------------ Export/Import ---------------------------- */
+function exportJSON(){const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gobraz_assessment_v5_base.json';a.click();}
+function importJSONModal(){document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">
+  <button class="btn btn-ghost btn-sm" style="float:right" onclick="closeModal()">✕</button>
+  <h2>Importar base JSON</h2><div class="notice warn mb12">A importação substitui a base atual deste navegador.</div>
+  <input type="file" id="jsonfile" accept="application/json">
+  <button class="btn btn-primary block mt12" onclick="doImportJSON()">Importar</button>
+ </div></div>`;}
+function doImportJSON(){const f=document.getElementById('jsonfile').files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const obj=JSON.parse(rd.result);localStorage.setItem(STORE_KEY,JSON.stringify(obj));closeModal();toast('Base importada');setTimeout(()=>location.reload(),500);}catch{toast('JSON inválido');}};rd.readAsText(f);}
+
+window.onpopstate=render;
+// Bootstrap: inicializa o provider (health-check no modo Sheets) e então renderiza.
+(async function boot(){
+ try{await Sync.init();}catch(e){/* fallback silencioso para cache local */}
+ render();
+ // No modo Sheets, se já houver consultor logado, puxa a base consolidada.
+ if(Sync.isSheets()&&STORAGE_CONFIG.adminToken){const u=currentUser();if(u&&isAdmin(u)){try{const d=await Sync.pull();if(d){mergeRemote(d);if(q().view==='consultor')render();}}catch{}}}
+})();
 </script>
 </body>
 </html>
